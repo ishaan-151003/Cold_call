@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyperbots Cold Call Navigator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #007bff;
+        --primary-hover: #0056b3;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --background-color: #f8f9fa;
+        --card-background: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--background-color);
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      .main-content {
+        background: var(--card-background);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar {
+        background: var(--card-background);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .section {
+        margin-bottom: 25px;
+        padding: 15px;
+        border-radius: 8px;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+      }
+
+      .section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .question {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #2c3e50;
+      }
+
+      .button {
+        padding: 10px 15px;
+        margin: 5px 10px 5px 0;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .button:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+
+      .response {
+        display: none;
+        margin-top: 10px;
+        background: #eef2f5;
+        padding: 15px;
+        border-left: 4px solid var(--primary-color);
+        border-radius: 6px;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .response.active {
+        display: block;
+      }
+
+      .notepad {
+        margin-top: 20px;
+      }
+
+      .notepad textarea {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        resize: vertical;
+        font-family: inherit;
+        margin-bottom: 10px;
+      }
+
+      .interest-tracker {
+        margin-top: 20px;
+      }
+
+      .interest-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .interest-btn {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .interested {
+        background-color: var(--success-color);
+        color: white;
+      }
+
+      .not-interested {
+        background-color: var(--danger-color);
+        color: white;
+      }
+
+      .stats {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 6px;
+      }
+
+      .stats h3 {
+        margin-bottom: 10px;
+        color: #2c3e50;
+      }
+
+      .stats p {
+        margin: 5px 0;
+        color: #666;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .copy-btn {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .copy-btn:hover {
+        background: #5a6268;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      .status-active {
+        background-color: var(--success-color);
+      }
+
+      .status-inactive {
+        background-color: var(--danger-color);
+      }
+
+      .co-pilots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .co-pilot-card {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+      }
+
+      .co-pilot-card h4 {
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .active-responses {
+        background: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .active-response-item {
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        background: #f8f9fa;
+        border-radius: 4px;
+        border-left: 4px solid #007bff;
+      }
+
+      .quick-access {
+        background: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .quick-access h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .quick-access-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .flow-indicator {
+        position: relative;
+        margin: 20px 0;
+        padding: 10px;
+        border-left: 3px solid var(--success-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .flow-indicator:hover {
+        background: rgba(40, 167, 69, 0.1);
+        transform: translateX(5px);
+      }
+
+      .flow-indicator.alternative {
+        border-left-color: #ffc107;
+      }
+
+      .flow-indicator.alternative:hover {
+        background: rgba(255, 193, 7, 0.1);
+      }
+
+      .co-pilots-overview {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+      }
+
+      .co-pilots-overview h2 {
+        color: white;
+        margin-bottom: 1.5rem;
+      }
+
+      .co-pilot-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .co-pilot-card h4 {
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .co-pilot-card p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .quick-access-answer {
+        margin-top: 15px;
+        background: #f8f9fa;
+        padding: 15px;
+        border-left: 4px solid var(--primary-color);
+        border-radius: 6px;
+        font-size: 15px;
+        color: #222;
+        min-height: 40px;
+        animation: fadeIn 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <h1>📞 Hyperbots Cold Call Navigator</h1>
+
+        <!-- Co-Pilots Overview (Moved to top) -->
+        <div class="co-pilots-overview">
+          <h2>Hyperbots Co-Pilots Overview</h2>
+          <div class="co-pilots-grid">
+            <div class="co-pilot-card">
+              <h4>Invoice Co-Pilot</h4>
+              <p>
+                Automates invoice processing with 99.9% accuracy, reducing
+                processing time by 90%
+              </p>
+            </div>
+            <div class="co-pilot-card">
+              <h4>Payment Co-Pilot</h4>
+              <p>
+                Streamlines payment workflows, ensures compliance, and optimizes
+                cash flow
+              </p>
+            </div>
+            <div class="co-pilot-card">
+              <h4>Procurement Co-Pilot</h4>
+              <p>Automates purchase order processing and vendor management</p>
+            </div>
+            <div class="co-pilot-card">
+              <h4>Tax Verification Co-Pilot</h4>
+              <p>
+                Ensures tax compliance and automates tax document processing
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start the conversation with standard buttons -->
+        <div class="section">
+          <div class="question">Start the conversation</div>
+          <button class="button" onclick="toggle('greeting')">
+            Greet Prospect
+          </button>
+          <div id="greeting" class="response">
+            Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan
+            calling from Hyperbots.
+            <button class="copy-btn" onclick="copyToClipboard('greeting')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('whatis')">
+            They might ask: What is Hyperbots?
+          </button>
+          <div id="whatis" class="response">
+            Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
+            automates invoice processing, payment workflows, procurement, and
+            tax verification with high accuracy and speed.
+            <button class="copy-btn" onclick="copyToClipboard('whatis')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('salescallconv')">
+            They might ask: Is this a sales call?
+          </button>
+          <div id="salescallconv" class="response">
+            I apologise if I gave you this impression. At this point, we are not
+            really sure if we are a right fit for each other. We are an Agentic
+            AI for AP and we are trying to connect with professionals like
+            yourself and understand how they manage AP processes and also wanted
+            to chat about how Agentic AI is changing the finance and accounting
+            game.
+            <button class="copy-btn" onclick="copyToClipboard('salescallconv')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('howgetnumber')">
+            They might ask: How did you get my number?
+          </button>
+          <div id="howgetnumber" class="response">
+            Oh, we have a database team that just updates mobile numbers on our
+            list. If you don't want me to call on this number, I'll do that but
+            before I hang up can you give me 30 seconds so that I can share the
+            reason for this call. If it doesn't make sense, I'll remove your
+            number.
+            <button class="copy-btn" onclick="copyToClipboard('howgetnumber')">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- New Privacy Concerns Section -->
+        <div class="section">
+          <div class="question">Privacy & Security Concerns</div>
+          <button class="button" onclick="toggle('privacy1')">
+            They ask: Why should I share company data?
+          </button>
+          <div id="privacy1" class="response">
+            "I completely understand your concern. We're SOC 2 Type II certified
+            and GDPR compliant. We never store your actual data - our AI
+            processes it in real-time and returns only the results. Would you
+            like to see our security certifications?"
+            <button class="copy-btn" onclick="copyToClipboard('privacy1')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('privacy2')">
+            They ask: How did you get my number?
+          </button>
+          <div id="privacy2" class="response">
+            "I found your contact through [source - LinkedIn/Company Website].
+            I'm reaching out because you're the [position] at [company], and I
+            thought you might be interested in how we're helping finance teams
+            automate their processes."
+            <button class="copy-btn" onclick="copyToClipboard('privacy2')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('privacy3')">
+            They threaten to report
+          </button>
+          <div id="privacy3" class="response">
+            "I apologize if this call is unwelcome. I'm calling because you're
+            listed as the [position] at [company]. I'll remove your number from
+            our database. Would you prefer I send information via email
+            instead?"
+            <button class="copy-btn" onclick="copyToClipboard('privacy3')">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="question">Main Qualification</div>
+          <button class="button" onclick="toggle('useai')">
+            Ask: Do you use AI in finance?
+          </button>
+          <div id="useai" class="response">
+            Do you currently use AI or automation tools like OCR, RPA, or
+            embedded ERP features in your finance workflows?
+            <button class="copy-btn" onclick="copyToClipboard('useai')">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="question">Their answer: YES</div>
+          <button class="button" onclick="toggle('aiyes')">Handle YES</button>
+          <div id="aiyes" class="response">
+            Great! Is it ERP-embedded or standalone? Most OCR/RPA tools rely on
+            fixed formats. Hyperbots doesn't—we handle even handwritten or
+            scanned invoices, classify them automatically, and do GL coding with
+            high accuracy.
+            <button class="copy-btn" onclick="copyToClipboard('aiyes')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('bookyes')">
+            They're Interested?
+          </button>
+          <div id="bookyes" class="response">
+            Awesome—can I confirm your email so I can send over a calendar
+            invite? You can choose a time that works for you.
+            <button class="copy-btn" onclick="copyToClipboard('bookyes')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('denyafteryes')">
+            They Say No After Yes
+          </button>
+          <div id="denyafteryes" class="response">
+            No worries. Thanks for the time—if ever you're curious to cut AP
+            time from 11 days to under 1 minute with 80% straight-through
+            processing, feel free to reach back!
+            <button class="copy-btn" onclick="copyToClipboard('denyafteryes')">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="question">Their answer: NO</div>
+          <button class="button" onclick="toggle('aino')">Handle NO</button>
+          <div id="aino" class="response">
+            Good to know. Our platform pulls invoices from mail, portals or
+            profiles, automates the full process from capture to
+            payment—including GL coding, accruals, procurement, tax, and vendor
+            onboarding using multiple AI co-pilots.
+            <button class="copy-btn" onclick="copyToClipboard('aino')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('intrestedno')">
+            They're Interested?
+          </button>
+          <div id="intrestedno" class="response">
+            That's great—can I confirm your email to set a 15-minute virtual
+            walkthrough?
+            <button class="copy-btn" onclick="copyToClipboard('intrestedno')">
+              Copy
+            </button>
+          </div>
+
+          <button class="button" onclick="toggle('nothanks')">
+            They're Not Interested
+          </button>
+          <div id="nothanks" class="response">
+            That's completely fair. Just to share, our platform cuts invoice
+            cycle time from 11 days to under a minute. With 80%+
+            straight-through rate, and the rest flagged with clarity—you might
+            want to give it a shot in future!
+            <button class="copy-btn" onclick="copyToClipboard('nothanks')">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Google Calendar Integration -->
+        <div class="section">
+          <div class="question">Schedule a Meeting</div>
+          <p>Let the prospect pick a time:</p>
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=irwinhyperbots%40gmail.com&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK"
+            style="border: 0"
+            width="100%"
+            height="500"
+            frameborder="0"
+            scrolling="no"
+          >
+          </iframe>
+        </div>
+      </div>
+
+      <div
+        class="sidebar"
+        style="position: sticky; top: 20px; align-self: start"
+      >
+        <!-- Quick Access Objections -->
+        <div class="quick-access">
+          <h3>Quick Access - Objections</h3>
+          <div class="quick-access-buttons">
+            <button class="button" onclick="toggle('systeminplaceall_q')">
+              I have a system in place, So not required / We are all set.
+            </button>
+            <div id="systeminplaceall_q" class="response">
+              <b>Option 1 – Value-focused</b><br />
+              Totally understand—most teams have systems in place. What we often
+              find is that even mature setups still rely on manual steps or
+              spreadsheets for exceptions. Would it be worth a quick look to see
+              if we can help your team go from partial to 80%+ straight-through
+              processing?<br /><br />
+              <b>Option 2 – Competitive angle</b><br />
+              That makes sense, and it's great that you're set up. Just
+              curious—how much of your invoice or accrual process is truly
+              touchless today? We often work alongside existing systems to close
+              that last mile with AI.<br /><br />
+              <b>Option 3 – Efficiency-driven</b><br />
+              Absolutely, and we're not looking to replace what's working. Many
+              of our clients had systems too—but by plugging Hyperbots into
+              their ERP, they cut manual effort by 80% and reduced processing
+              time to under a minute. Worth a quick chat?<br /><br />
+              <b>Option 4 – Soft close</b><br />
+              Understood! Would it be okay if I sent you a quick one-pager on
+              how we complement existing systems with AI? That way, you can keep
+              us in mind if things change down the road.
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('systeminplaceall_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('salescallconv_q')">
+              Is this a sales call?
+            </button>
+            <div id="salescallconv_q" class="response">
+              I apologise if I gave you this impression. At this point, we are
+              not really sure if we are a right fit for each other. We are an
+              Agentic AI for AP and we are trying to connect with professionals
+              like yourself and understand how they manage AP processes and also
+              wanted to chat about how Agentic AI is changing the finance and
+              accounting game.
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('salescallconv_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('erpchange_q')">
+              Changing ERP
+            </button>
+            <div id="erpchange_q" class="response">
+              I see. I understand that must be a time-consuming and challenging
+              process. So, what we can do for now is show you how our AI
+              co-pilots are transforming the accounts payable game. Once your
+              ERP implementation is complete, we can always reconnect and
+              explore the next steps. Does that sound fair?
+              <button class="copy-btn" onclick="copyToClipboard('erpchange_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('cost_q')">
+              How much does it cost?
+            </button>
+            <div id="cost_q" class="response">
+              That's a good question. That depends on the invoice volume of your
+              company. We can customise our pricing as per your company's needs
+              and requirements. If you want to learn more about it, I can patch
+              a call with our solution experts who'll be able to explain things
+              better.
+              <button class="copy-btn" onclick="copyToClipboard('cost_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('companyinfo_q')">
+              Why share company info?
+            </button>
+            <div id="companyinfo_q" class="response">
+              That's a valid question. I apologise if I sounded invasive. So,
+              I'm not trying to access any confidential information about your
+              company. It's just that we were trying to understand how companies
+              manage their AP processes and see how our AI assistant can help
+              optimise them.
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('companyinfo_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('nobudget_q')">
+              No budget allocated
+            </button>
+            <div id="nobudget_q" class="response">
+              I can understand. I can definitely reach back to you next year.
+              So, before we do that if you could just hop on a short 15-20 mins
+              call sometime this week, you can see what we do and suggest any
+              modification as per your company. In that way, we'll be able to
+              give a tailored demonstration to you and your company when we next
+              connect and maybe you can prepare a business case to your
+              superiors when the budget is allocated.
+              <button class="copy-btn" onclick="copyToClipboard('nobudget_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('noauthority_q')">
+              Not the right person
+            </button>
+            <div id="noauthority_q" class="response">
+              That's not an issue. We are not looking for any decision maker
+              right now. It's just that you are looking after AP on a daily
+              basis and you would be aware about the problems and challenges
+              better. That's why i wanted to have a conversation with you to
+              know about AP processes in your company better
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('noauthority_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('industry_q')">
+              Worked with industry?
+            </button>
+            <div id="industry_q" class="response">
+              We are currently researching &lt;industry&gt; and we have
+              partnered with &lt;partner&gt; who have helped us to understand
+              better. So, we do have a fair idea about this industry. We would
+              always love to get your views on our solution which can help us
+              further.
+              <button class="copy-btn" onclick="copyToClipboard('industry_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('corporate_q')">
+              Corporate office decides
+            </button>
+            <div id="corporate_q" class="response">
+              That's not an issue. We are not looking for any decision maker
+              right now. It's just that you are looking after AP on a daily
+              basis and you would be aware about the problems and challenges
+              better. That's why i wanted to have a conversation with you to
+              know about AP processes in your company better
+              <button class="copy-btn" onclick="copyToClipboard('corporate_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('internal_q')">
+              Handle internally
+            </button>
+            <div id="internal_q" class="response">
+              That's wonderful! So, we have just launched our solution. Don't
+              want to put any solution down. What we would appreciate is if you
+              could give us 15-20 mins, we can show what we can offer and if it
+              seems like something that can add value, great, we can move
+              further.
+              <button class="copy-btn" onclick="copyToClipboard('internal_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('personalnumber_q')">
+              Personal mobile number
+            </button>
+            <div id="personalnumber_q" class="response">
+              Oh, we have a database team that just updates mobile numbers on
+              our list. If you don't want me to call on this number, I'll do
+              that but before I hang up can you give me 30 seconds so that I can
+              share the reason for this call. If it doesn't make sense, I'll
+              remove your number.
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('personalnumber_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('whatis_q')">
+              What is Hyperbots?
+            </button>
+            <div id="whatis_q" class="response">
+              Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
+              automates invoice processing, payment workflows, procurement, and
+              tax verification with high accuracy and speed.
+              <button class="copy-btn" onclick="copyToClipboard('whatis_q')">
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('howgetnumber_q')">
+              How did you get my number?
+            </button>
+            <div id="howgetnumber_q" class="response">
+              Oh, we have a database team that just updates mobile numbers on
+              our list. If you don't want me to call on this number, I'll do
+              that but before I hang up can you give me 30 seconds so that I can
+              share the reason for this call. If it doesn't make sense, I'll
+              remove your number.
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('howgetnumber_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('busy_q')">
+              They say: I'm busy
+            </button>
+            <div id="busy_q" class="response">
+              Totally understand! Can I send over a 60-second overview by email
+              and you can check when it suits you?<button
+                class="copy-btn"
+                onclick="copyToClipboard('busy_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('alreadyusing_q')">
+              They say: We already have a tool
+            </button>
+            <div id="alreadyusing_q" class="response">
+              Makes sense—most teams do. Just out of curiosity, is it ERP-native
+              or standalone?<button
+                class="copy-btn"
+                onclick="copyToClipboard('alreadyusing_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('notrighttime_q')">
+              They say: Not the right time
+            </button>
+            <div id="notrighttime_q" class="response">
+              No problem—happy to circle back next quarter. May I just note the
+              best person/time?<button
+                class="copy-btn"
+                onclick="copyToClipboard('notrighttime_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('sendemail_q')">
+              They say: Send me an email
+            </button>
+            <div id="sendemail_q" class="response">
+              Sure thing—can I confirm your email address real quick? I'll keep
+              it short and relevant.<button
+                class="copy-btn"
+                onclick="copyToClipboard('sendemail_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('notinterested_q')">
+              They say: Not Interested
+            </button>
+            <div id="notinterested_q" class="response">
+              Understood. Just sharing: we cut invoice time from 11 days to
+              under a minute. Open to a future chat if priorities change!<button
+                class="copy-btn"
+                onclick="copyToClipboard('notinterested_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('questionpainpoint_q')">
+              Ask: Any pain point in AP?
+            </button>
+            <div id="questionpainpoint_q" class="response">
+              Is there a current pain point you're trying to fix in AP—volume,
+              errors, vendor onboarding?<button
+                class="copy-btn"
+                onclick="copyToClipboard('questionpainpoint_q')"
+              >
+                Copy
+              </button>
+            </div>
+            <button class="button" onclick="toggle('questiontools_q')">
+              Ask: Which tool do you use?
+            </button>
+            <div id="questiontools_q" class="response">
+              Are you using tools like Tipalti, Coupa, or NetSuite's native
+              features?<button
+                class="copy-btn"
+                onclick="copyToClipboard('questiontools_q')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="notepad">
+          <h3>Call Notes</h3>
+          <textarea
+            id="callNotes"
+            placeholder="Take notes during the call..."
+          ></textarea>
+          <button class="button" onclick="saveNotes()">Save Notes</button>
+          <button class="button" onclick="exportNotes()">Export Notes</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle response visibility in main content only (not sidebar)
+      function toggle(id) {
+        // Hide all other responses in the same parent
+        const parent = document.getElementById(id).parentElement;
+        const allSections = parent.querySelectorAll(".response");
+        allSections.forEach((response) => {
+          if (response.id !== id) response.classList.remove("active");
+        });
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.toggle("active");
+        }
+      }
+
+      // Copy text to clipboard
+      function copyToClipboard(id) {
+        const text = document.getElementById(id).textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Copied to clipboard!");
+        });
+      }
+
+      // Save notes to localStorage
+      function saveNotes() {
+        const notes = document.getElementById("callNotes").value;
+        localStorage.setItem("callNotes", notes);
+        alert("Notes saved!");
+      }
+
+      // Load saved notes on page load
+      window.onload = function () {
+        const savedNotes = localStorage.getItem("callNotes");
+        if (savedNotes) {
+          document.getElementById("callNotes").value = savedNotes;
+        }
+      };
+
+      function exportNotes() {
+        const notes = document.getElementById("callNotes").value;
+        const calls = document.getElementById("totalCalls").textContent;
+        const yes = document.getElementById("interestedCount").textContent;
+        const no = document.getElementById("notInterestedCount").textContent;
+
+        const csv = `Notes,Total Calls,Interested,Not Interested\n"${notes.replace(
+          /"/g,
+          '""'
+        )}",${calls},${yes},${no}`;
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "call_data.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    </script>
+  </body>
+</html>
