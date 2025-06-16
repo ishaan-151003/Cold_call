@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Hyperbots Cold Call Navigator</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
@@ -56,6 +62,7 @@
       .search-container {
         width: 300px;
         position: relative;
+        flex-shrink: 0;
       }
 
       .search-input {
@@ -173,6 +180,26 @@
         margin-top: 10px;
       }
 
+      .filter-tags.collapsed .filter-tag:nth-child(n + 6) {
+        display: none;
+      }
+
+      .more-filters-btn {
+        background: var(--border-color);
+        color: var(--text-color);
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+      }
+
+      .more-filters-btn:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
       .filter-tag {
         background: var(--border-color);
         color: var(--text-color);
@@ -274,6 +301,29 @@
 
       .tag.active {
         background: var(--success-color);
+      }
+
+      #filteredQuickAccess {
+        background: rgba(0, 123, 255, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid var(--primary-color);
+      }
+
+      #filteredQuickAccessButtons .button {
+        font-size: 12px;
+        padding: 8px 12px;
+        margin-bottom: 5px;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      #filteredQuickAccessButtons .button:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-1px);
       }
 
       .objection-content {
@@ -392,12 +442,48 @@
   </head>
   <body>
     <div class="header">
-      <img
-        src="assets/images/Hyperbots Logo.jpeg"
-        alt="Hyperbots Logo"
-        class="logo"
-        onclick="location.reload()"
-      />
+      <div style="display: flex; align-items: center; gap: 15px">
+        <img
+          src="./Hyperbots Logo.jpeg"
+          alt="Hyperbots Logo"
+          style="
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+          "
+          onclick="location.reload()"
+          title="Hyperbots - Click to refresh"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div
+          style="
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+          "
+          onclick="location.reload()"
+          title="Hyperbots - Click to refresh"
+        >
+          HB
+        </div>
+        <h1 style="color: var(--text-color); font-size: 24px; margin: 0">
+          HyperNavigator
+        </h1>
+      </div>
       <div class="search-container">
         <input
           type="text"
@@ -414,57 +500,82 @@
         <!-- Call Script Section -->
         <div class="call-script">
           <div class="objection-header">
-            <h2>📞 Main Call Script</h2>
+            <h2>Call Script</h2>
             <div class="objection-controls">
               <button class="edit-btn" onclick="editCallScript()">Edit</button>
               <button class="copy-btn" onclick="copyCallScript()">Copy</button>
             </div>
           </div>
           <div class="objection-content" id="callScriptContent">
-            Hi am I connected to [Name]? [If not- May I know who am I speaking
-            with? ] Hi [Name]! I am Ishaan calling from Hyperbots. I had one
-            quick question, if you don't mind me asking. Do you guys use AI or
-            any automation tools in your finance and accounting workflows? [The
-            answer is yes] I understand, and we're not looking to replace what's
-            working. Many of our clients had systems too—but by plugging
-            Hyperbots into their ERP, they cut manual effort by 80% and reduced
-            processing time to under a minute. Worth a quick chat? [The answer
-            is no] Alright! That's exactly where we can help. Our platform uses
-            AI co-pilots to pull invoices from emails, portals, or profiles and
+            <strong>OPENING:</strong><br />
+            Hi, am I connected to [Name]?<br />
+            <em>[If not: May I know who am I speaking with?]</em><br /><br />
+
+            Hi [Name]! I am [Your Name] calling from Hyperbots.<br /><br />
+
+            <strong>QUALIFYING QUESTION:</strong><br />
+            I had one quick question, if you don't mind me asking. Do you guys
+            use AI or any automation tools in your finance and accounting
+            workflows?<br /><br />
+
+            <strong>[THE ANSWER IS YES]</strong><br />
+            I understand, and we're not looking to replace what's working. Many
+            of our clients had systems too—but by plugging Hyperbots into their
+            ERP, they cut manual effort by 80% and reduced processing time to
+            under a minute. Worth a quick chat?<br /><br />
+
+            <strong>[THE ANSWER IS NO]</strong><br />
+            Alright! That's exactly where we can help. Our platform uses AI
+            co-pilots to pull invoices from emails, portals, or profiles and
             automates the entire process—from capture to payment, including GL
             coding, accruals, procurement, tax, and vendor onboarding. Does that
-            sound interesting? [Before I let you go, would you be open to a
-            quick 15-minute call? I'd love to give you a short demo of our
-            platform.] [They are not interested] Totally fair. Before I let you
-            go, would you be open to a quick 15-minute call? I'd love to give
-            you a short demo of our platform. [Just putting it out there—our
-            platform cuts invoice cycle time from 11 days to under a minute,
-            with 80%+ straight-through processing. The rest are flagged clearly.
-            Worth a look in the future!] [They are interested] Great! Could you
-            please confirm your email so I can send over a calendar invite for a
-            quick virtual call? You'll be able to see everything in action, and
-            of course, you can choose a time that works best for you.
+            sound interesting?<br /><br />
+
+            <strong>FOLLOW-UP OPTIONS:</strong><br />
+            Before I let you go, would you be open to a quick 15-minute call?
+            I'd love to give you a short demo of our platform.<br /><br />
+
+            <strong>[THEY ARE NOT INTERESTED]</strong><br />
+            Totally fair. Before I let you go, would you be open to a quick
+            15-minute call? I'd love to give you a short demo of our
+            platform.<br /><br />
+
+            Just putting it out there—our platform cuts invoice cycle time from
+            11 days to under a minute, with 80%+ straight-through processing.
+            The rest are flagged clearly. Worth a look in the future!<br /><br />
+
+            <strong>[THEY ARE INTERESTED]</strong><br />
+            Great! Could you please confirm your email so I can send over a
+            calendar invite for a quick virtual call? You'll be able to see
+            everything in action, and of course, you can choose a time that
+            works best for you.
           </div>
           <div class="objection-edit" id="editCallScript" style="display: none">
             <textarea class="edit-textarea" id="callScriptTextarea">
-Hi am I connected to [Name]? [If not- May I know who am I speaking with? ]
-Hi [Name]! I am Ishaan calling from Hyperbots.
+OPENING:
+Hi, am I connected to [Name]?
+[If not: May I know who am I speaking with?]
+
+            Hi [Name]! I am [Your Name] calling from Hyperbots.
+
+QUALIFYING QUESTION:
 I had one quick question, if you don't mind me asking. Do you guys use AI or any automation tools in your finance and accounting workflows?
 
-[The answer is yes]
+[THE ANSWER IS YES]
 I understand, and we're not looking to replace what's working. Many of our clients had systems too—but by plugging Hyperbots into their ERP, they cut manual effort by 80% and reduced processing time to under a minute. Worth a quick chat?
 
-[The answer is no]
+[THE ANSWER IS NO]
 Alright! That's exactly where we can help. Our platform uses AI co-pilots to pull invoices from emails, portals, or profiles and automates the entire process—from capture to payment, including GL coding, accruals, procurement, tax, and vendor onboarding. Does that sound interesting?
 
-[Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform.]
+FOLLOW-UP OPTIONS:
+Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform.
 
-[They are not interested]
-Totally fair. Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform. 
+[THEY ARE NOT INTERESTED]
+Totally fair. Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform.
 
-[Just putting it out there—our platform cuts invoice cycle time from 11 days to under a minute, with 80%+ straight-through processing. The rest are flagged clearly. Worth a look in the future!]
+Just putting it out there—our platform cuts invoice cycle time from 11 days to under a minute, with 80%+ straight-through processing. The rest are flagged clearly. Worth a look in the future!
 
-[They are interested]
+[THEY ARE INTERESTED]
 Great! Could you please confirm your email so I can send over a calendar invite for a quick virtual call? You'll be able to see everything in action, and of course, you can choose a time that works best for you.</textarea
             >
             <button class="save-btn" onclick="saveCallScript()">Save</button>
@@ -560,490 +671,130 @@ Great! Could you please confirm your email so I can send over a calendar invite 
           </div>
         </div>
 
-        <!-- Static HTML Sections -->
-        <div
-          class="section"
-          style="
-            background: var(--card-background);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-          "
-        >
-          <div
-            class="question"
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              margin-bottom: 15px;
-              color: var(--text-color);
-            "
-          >
-            Start the conversation
-          </div>
-          <button class="button" onclick="toggle('greeting')">
-            Greet Prospect
-          </button>
-          <div
-            id="greeting"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            <div id="greeting-content">
-              Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan
-              calling from Hyperbots.
-            </div>
-            <div id="greeting-edit" style="display: none">
-              <textarea class="edit-textarea" id="greeting-textarea">
-Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyperbots.</textarea
+        <!-- Add New Objection Form -->
+        <div class="add-objection-form" id="addForm" style="display: none">
+          <h3>Add New Objection</h3>
+          <input
+            type="text"
+            class="tag-input"
+            id="newTitle"
+            placeholder="Objection title..."
+          />
+          <div style="margin: 10px 0">
+            <label
+              style="
+                color: var(--text-color);
+                display: block;
+                margin-bottom: 5px;
+              "
+              >Tags:</label
+            >
+            <div style="display: flex; gap: 10px; align-items: center">
+              <select
+                id="existingTags"
+                multiple
+                style="
+                  width: 200px;
+                  height: 100px;
+                  background: var(--card-background);
+                  color: var(--text-color);
+                  border: 1px solid var(--border-color);
+                  border-radius: 4px;
+                  padding: 5px;
+                "
               >
-              <button class="save-btn" onclick="saveStaticResponse('greeting')">
-                Save
-              </button>
-              <button class="cancel-btn" onclick="cancelStaticEdit('greeting')">
-                Cancel
-              </button>
-            </div>
-            <button class="edit-btn" onclick="editStaticResponse('greeting')">
-              Edit
-            </button>
-            <button class="copy-btn" onclick="copyToClipboard('greeting')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('whatis')">
-            They might ask: What is Hyperbots?
-          </button>
-          <div
-            id="whatis"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
-            automates invoice processing, payment workflows, procurement, and
-            tax verification with high accuracy and speed.
-            <button class="copy-btn" onclick="copyToClipboard('whatis')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('salescallconv')">
-            They might ask: Is this a sales call?
-          </button>
-          <div
-            id="salescallconv"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            I apologise if I gave you this impression. At this point, we are not
-            really sure if we are a right fit for each other. We are an Agentic
-            AI for AP and we are trying to connect with professionals like
-            yourself and understand how they manage AP processes and also wanted
-            to chat about how Agentic AI is changing the finance and accounting
-            game.
-            <button class="copy-btn" onclick="copyToClipboard('salescallconv')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('howgetnumber')">
-            They might ask: How did you get my number?
-          </button>
-          <div
-            id="howgetnumber"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Oh, we have a database team that just updates mobile numbers on our
-            list. If you don't want me to call on this number, I'll do that but
-            before I hang up can you give me 30 seconds so that I can share the
-            reason for this call. If it doesn't make sense, I'll remove your
-            number.
-            <button class="copy-btn" onclick="copyToClipboard('howgetnumber')">
-              Copy
-            </button>
-          </div>
-        </div>
-
-        <!-- Privacy & Security Concerns Section -->
-        <div
-          class="section"
-          style="
-            background: var(--card-background);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-          "
-        >
-          <div
-            class="question"
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              margin-bottom: 15px;
-              color: var(--text-color);
-            "
-          >
-            Privacy & Security Concerns
-          </div>
-          <button class="button" onclick="toggle('privacy1')">
-            They ask: Why should I share company data?
-          </button>
-          <div
-            id="privacy1"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            "I completely understand your concern. We're SOC 2 Type II certified
-            and GDPR compliant. We never store your actual data - our AI
-            processes it in real-time and returns only the results. Would you
-            like to see our security certifications?"
-            <button class="copy-btn" onclick="copyToClipboard('privacy1')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('privacy2')">
-            They ask: How did you get my number?
-          </button>
-          <div
-            id="privacy2"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            "I found your contact through [source - LinkedIn/Company Website].
-            I'm reaching out because you're the [position] at [company], and I
-            thought you might be interested in how we're helping finance teams
-            automate their processes."
-            <button class="copy-btn" onclick="copyToClipboard('privacy2')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('privacy3')">
-            They threaten to report
-          </button>
-          <div
-            id="privacy3"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            "I apologize if this call is unwelcome. I'm calling because you're
-            listed as the [position] at [company]. I'll remove your number from
-            our database. Would you prefer I send information via email
-            instead?"
-            <button class="copy-btn" onclick="copyToClipboard('privacy3')">
-              Copy
-            </button>
-          </div>
-        </div>
-
-        <!-- Main Qualification Section -->
-        <div
-          class="section"
-          style="
-            background: var(--card-background);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-          "
-        >
-          <div
-            class="question"
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              margin-bottom: 15px;
-              color: var(--text-color);
-            "
-          >
-            Main Qualification
-          </div>
-          <button class="button" onclick="toggle('useai')">
-            Ask: Do you use AI in finance?
-          </button>
-          <div
-            id="useai"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Do you currently use AI or automation tools like OCR, RPA, or
-            embedded ERP features in your finance workflows?
-            <button class="copy-btn" onclick="copyToClipboard('useai')">
-              Copy
-            </button>
-          </div>
-        </div>
-
-        <!-- Their answer: YES Section -->
-        <div
-          class="section"
-          style="
-            background: var(--card-background);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-          "
-        >
-          <div
-            class="question"
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              margin-bottom: 15px;
-              color: var(--text-color);
-            "
-          >
-            Their answer: YES
-          </div>
-          <button class="button" onclick="toggle('aiyes')">Handle YES</button>
-          <div
-            id="aiyes"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Great! Is it ERP-embedded or standalone? Most OCR/RPA tools rely on
-            fixed formats. Hyperbots doesn't—we handle even handwritten or
-            scanned invoices, classify them automatically, and do GL coding with
-            high accuracy.
-            <button class="copy-btn" onclick="copyToClipboard('aiyes')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('bookyes')">
-            They're Interested?
-          </button>
-          <div
-            id="bookyes"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Awesome—can I confirm your email so I can send over a calendar
-            invite? You can choose a time that works for you.
-            <button class="copy-btn" onclick="copyToClipboard('bookyes')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('denyafteryes')">
-            They Say No After Yes
-          </button>
-          <div
-            id="denyafteryes"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            No worries. Thanks for the time—if ever you're curious to cut AP
-            time from 11 days to under 1 minute with 80% straight-through
-            processing, feel free to reach back!
-            <button class="copy-btn" onclick="copyToClipboard('denyafteryes')">
-              Copy
-            </button>
-          </div>
-        </div>
-
-        <!-- Their answer: NO Section -->
-        <div
-          class="section"
-          style="
-            background: var(--card-background);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-          "
-        >
-          <div
-            class="question"
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              margin-bottom: 15px;
-              color: var(--text-color);
-            "
-          >
-            Their answer: NO
-          </div>
-          <button class="button" onclick="toggle('aino')">Handle NO</button>
-          <div
-            id="aino"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            Good to know. Our platform pulls invoices from mail, portals or
-            profiles, automates the full process from capture to
-            payment—including GL coding, accruals, procurement, tax, and vendor
-            onboarding using multiple AI co-pilots.
-            <button class="copy-btn" onclick="copyToClipboard('aino')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('intrestedno')">
-            They're Interested?
-          </button>
-          <div
-            id="intrestedno"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            That's great—can I confirm your email to set a 15-minute virtual
-            walkthrough?
-            <button class="copy-btn" onclick="copyToClipboard('intrestedno')">
-              Copy
-            </button>
-          </div>
-
-          <button class="button" onclick="toggle('nothanks')">
-            They're Not Interested
-          </button>
-          <div
-            id="nothanks"
-            class="response"
-            style="
-              display: none;
-              margin-top: 10px;
-              background: var(--background-color);
-              padding: 15px;
-              border-left: 4px solid var(--primary-color);
-              border-radius: 6px;
-              animation: fadeIn 0.3s ease;
-            "
-          >
-            That's completely fair. Just to share, our platform cuts invoice
-            cycle time from 11 days to under a minute. With 80%+
-            straight-through rate, and the rest flagged with clarity—you might
-            want to give it a shot in future!
-            <button class="copy-btn" onclick="copyToClipboard('nothanks')">
-              Copy
-            </button>
-          </div>
-        </div>
-
-        <!-- Filters -->
-        <div class="filters">
-          <h3>Filter by Tags</h3>
-          <div class="filter-tags" id="filterTags">
-            <div class="filter-tag active" onclick="filterByTag('all')">
-              All
+                <!-- Tags will be populated here -->
+              </select>
+              <div style="flex: 1">
+                <input
+                  type="text"
+                  class="tag-input"
+                  id="newTags"
+                  placeholder="Add new tags (comma separated)..."
+                />
+                <div
+                  id="selectedTagsDisplay"
+                  style="
+                    margin-top: 5px;
+                    display: flex;
+                    gap: 5px;
+                    flex-wrap: wrap;
+                  "
+                >
+                  <!-- Selected tags will appear here -->
+                </div>
+              </div>
             </div>
           </div>
+          <textarea
+            class="edit-textarea"
+            id="newContent"
+            placeholder="Response content..."
+            style="min-height: 80px"
+          ></textarea>
+          <div style="margin-top: 10px">
+            <button class="save-btn" onclick="addNewObjection()">
+              Add Objection
+            </button>
+            <button class="cancel-btn" onclick="toggleAddForm()">Cancel</button>
+          </div>
         </div>
 
-        <!-- Objections Container -->
-        <div id="objections-container">
-          <!-- Objections will be dynamically loaded here -->
+        <div style="margin-bottom: 15px">
+          <button
+            class="button"
+            onclick="toggleAddForm()"
+            style="background: var(--success-color)"
+          >
+            + Add New Objection
+          </button>
+          <button
+            class="button"
+            onclick="showRestoreMenu()"
+            style="
+              background: var(--warning-color);
+              color: black;
+              margin-left: 10px;
+            "
+          >
+            Restore Deleted
+          </button>
+        </div>
+
+        <!-- Dynamic Objections Container -->
+        <div id="dynamicObjections">
+          <!-- New objections will be rendered here -->
         </div>
       </div>
 
       <div class="sidebar">
+        <!-- Filter Tags Section in Sidebar -->
+        <div class="filters" style="margin-bottom: 20px">
+          <h3>Filter by Tags</h3>
+          <div class="filter-tags collapsed" id="filterTags">
+            <div class="filter-tag active" onclick="filterByTag('all')">
+              All
+            </div>
+          </div>
+          <button
+            class="more-filters-btn"
+            id="moreFiltersBtn"
+            onclick="toggleMoreFilters()"
+            style="margin-top: 5px"
+          >
+            +more filters
+          </button>
+        </div>
+
         <div class="quick-access">
           <h3>Quick Access - Objections</h3>
+          <div
+            id="filteredQuickAccess"
+            style="display: none; margin-bottom: 15px"
+          >
+            <div id="filteredQuickAccessButtons"></div>
+          </div>
+
           <div class="quick-access-buttons">
             <button class="button" onclick="toggle('systeminplaceall_q')">
               I have a system in place, So not required / We are all set.
@@ -1080,12 +831,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               Understood! Would it be okay if I sent you a quick one-pager on
               how we complement existing systems with AI? That way, you can keep
               us in mind if things change down the road.
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard('systeminplaceall_q')"
-              >
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('systeminplaceall_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('systeminplaceall_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('salescallconv_q')">
               Is this a sales call?
@@ -1108,12 +867,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               like yourself and understand how they manage AP processes and also
               wanted to chat about how Agentic AI is changing the finance and
               accounting game.
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard('salescallconv_q')"
-              >
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('salescallconv_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('salescallconv_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('erpchange_q')">
               Changing ERP
@@ -1135,9 +902,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               co-pilots are transforming the accounts payable game. Once your
               ERP implementation is complete, we can always reconnect and
               explore the next steps. Does that sound fair?
-              <button class="copy-btn" onclick="copyToClipboard('erpchange_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('erpchange_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('erpchange_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('cost_q')">
               How much does it cost?
@@ -1159,9 +937,14 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               and requirements. If you want to learn more about it, I can patch
               a call with our solution experts who'll be able to explain things
               better.
-              <button class="copy-btn" onclick="copyToClipboard('cost_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button class="edit-btn" onclick="editQuickResponse('cost_q')">
+                  Edit
+                </button>
+                <button class="copy-btn" onclick="copyToClipboard('cost_q')">
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('companyinfo_q')">
               Why share company info?
@@ -1183,12 +966,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               company. It's just that we were trying to understand how companies
               manage their AP processes and see how our AI assistant can help
               optimise them.
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard('companyinfo_q')"
-              >
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('companyinfo_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('companyinfo_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('nobudget_q')">
               No budget allocated
@@ -1212,9 +1003,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               give a tailored demonstration to you and your company when we next
               connect and maybe you can prepare a business case to your
               superiors when the budget is allocated.
-              <button class="copy-btn" onclick="copyToClipboard('nobudget_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('nobudget_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('nobudget_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('noauthority_q')">
               Not the right person
@@ -1263,9 +1065,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               better. So, we do have a fair idea about this industry. We would
               always love to get your views on our solution which can help us
               further.
-              <button class="copy-btn" onclick="copyToClipboard('industry_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('industry_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('industry_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('corporate_q')">
               Corporate office decides
@@ -1287,9 +1100,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               basis and you would be aware about the problems and challenges
               better. That's why i wanted to have a conversation with you to
               know about AP processes in your company better
-              <button class="copy-btn" onclick="copyToClipboard('corporate_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('corporate_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('corporate_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('internal_q')">
               Handle internally
@@ -1311,9 +1135,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               could give us 15-20 mins, we can show what we can offer and if it
               seems like something that can add value, great, we can move
               further.
-              <button class="copy-btn" onclick="copyToClipboard('internal_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('internal_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('internal_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('personalnumber_q')">
               Personal mobile number
@@ -1335,12 +1170,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               that but before I hang up can you give me 30 seconds so that I can
               share the reason for this call. If it doesn't make sense, I'll
               remove your number.
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard('personalnumber_q')"
-              >
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('personalnumber_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('personalnumber_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('whatis_q')">
               What is Hyperbots?
@@ -1360,9 +1203,17 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
               automates invoice processing, payment workflows, procurement, and
               tax verification with high accuracy and speed.
-              <button class="copy-btn" onclick="copyToClipboard('whatis_q')">
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('whatis_q')"
+                >
+                  Edit
+                </button>
+                <button class="copy-btn" onclick="copyToClipboard('whatis_q')">
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('howgetnumber_q')">
               How did you get my number?
@@ -1384,12 +1235,20 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               that but before I hang up can you give me 30 seconds so that I can
               share the reason for this call. If it doesn't make sense, I'll
               remove your number.
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard('howgetnumber_q')"
-              >
-                Copy
-              </button>
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('howgetnumber_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('howgetnumber_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('busy_q')">
               They say: I'm busy
@@ -1407,12 +1266,15 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Totally understand! Can I send over a 60-second overview by email
-              and you can check when it suits you?<button
-                class="copy-btn"
-                onclick="copyToClipboard('busy_q')"
-              >
-                Copy
-              </button>
+              and you can check when it suits you?
+              <div style="margin-top: 10px">
+                <button class="edit-btn" onclick="editQuickResponse('busy_q')">
+                  Edit
+                </button>
+                <button class="copy-btn" onclick="copyToClipboard('busy_q')">
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('alreadyusing_q')">
               They say: We already have a tool
@@ -1430,12 +1292,21 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Makes sense—most teams do. Just out of curiosity, is it ERP-native
-              or standalone?<button
-                class="copy-btn"
-                onclick="copyToClipboard('alreadyusing_q')"
-              >
-                Copy
-              </button>
+              or standalone?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('alreadyusing_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('alreadyusing_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('notrighttime_q')">
               They say: Not the right time
@@ -1453,12 +1324,21 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               No problem—happy to circle back next quarter. May I just note the
-              best person/time?<button
-                class="copy-btn"
-                onclick="copyToClipboard('notrighttime_q')"
-              >
-                Copy
-              </button>
+              best person/time?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('notrighttime_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('notrighttime_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('sendemail_q')">
               They say: Send me an email
@@ -1476,12 +1356,21 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Sure thing—can I confirm your email address real quick? I'll keep
-              it short and relevant.<button
-                class="copy-btn"
-                onclick="copyToClipboard('sendemail_q')"
-              >
-                Copy
-              </button>
+              it short and relevant.
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('sendemail_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('sendemail_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('notinterested_q')">
               They say: Not Interested
@@ -1499,12 +1388,21 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Understood. Just sharing: we cut invoice time from 11 days to
-              under a minute. Open to a future chat if priorities change!<button
-                class="copy-btn"
-                onclick="copyToClipboard('notinterested_q')"
-              >
-                Copy
-              </button>
+              under a minute. Open to a future chat if priorities change!
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('notinterested_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('notinterested_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('questionpainpoint_q')">
               Ask: Any pain point in AP?
@@ -1522,12 +1420,21 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Is there a current pain point you're trying to fix in AP—volume,
-              errors, vendor onboarding?<button
-                class="copy-btn"
-                onclick="copyToClipboard('questionpainpoint_q')"
-              >
-                Copy
-              </button>
+              errors, vendor onboarding?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('questionpainpoint_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('questionpainpoint_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <button class="button" onclick="toggle('questiontools_q')">
               Ask: Which tool do you use?
@@ -1545,12 +1452,189 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
               "
             >
               Are you using tools like Tipalti, Coupa, or NetSuite's native
-              features?<button
-                class="copy-btn"
-                onclick="copyToClipboard('questiontools_q')"
-              >
-                Copy
-              </button>
+              features?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('questiontools_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('questiontools_q')"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+            <button class="button" onclick="toggle('dontohandleap_q')">
+              I don't handle AP
+            </button>
+            <div
+              id="dontohandleap_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
+              Got it — thanks for letting me know. Could you connect me with
+              someone who handles AP operations at your company? I'll send a
+              quick intro there. Will you be forwarding it to the relevant
+              person, or is there anyone I should CC directly?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('dontohandleap_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('dontohandleap_q')"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+            <button class="button" onclick="toggle('notatrighttime_q')">
+              We're not looking to make changes right now
+            </button>
+            <div
+              id="notatrighttime_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
+              I hear you. The great part is, there's nothing to change right now
+              — this would just be a short exploratory call to show what's
+              possible. Even if it's not a fit today, it might give you ideas
+              for when you're ready to optimize later.
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('notatrighttime_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('notatrighttime_q')"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+            <button class="button" onclick="toggle('triedbefore_q')">
+              We tried something like this before, didn't work
+            </button>
+            <div
+              id="triedbefore_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
+              I hear you — that's actually a story we hear often. A lot of
+              earlier tools were clunky or required system overhauls. Hyperbots
+              is built to be lightweight, fast to deploy, and sits on top of
+              your ERP, so teams can get results in weeks, not months.
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('triedbefore_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('triedbefore_q')"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+            <button class="button" onclick="toggle('alreadyusingai_q')">
+              We're already using AI
+            </button>
+            <div
+              id="alreadyusingai_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
+              That's great! We love hearing that. Out of curiosity — is it
+              automating things like invoice matching, GL coding, or vendor
+              payments? A lot of teams use AI in parts, but we help bring it
+              together across the whole AP process.
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('alreadyusingai_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('alreadyusingai_q')"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+            <button class="button" onclick="toggle('callmelater_q')">
+              Call me back later
+            </button>
+            <div
+              id="callmelater_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
+              Of course — is there a better day or time next week I can quickly
+              check in?
+              <div style="margin-top: 10px">
+                <button
+                  class="edit-btn"
+                  onclick="editQuickResponse('callmelater_q')"
+                >
+                  Edit
+                </button>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard('callmelater_q')"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1586,6 +1670,38 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
 
     <script>
       // Complete objections data with all original objections
+      // Static response tags mapping - comprehensive mapping for all static responses
+      const staticResponseTags = {
+        // Quick Access responses (sidebar)
+        systeminplaceall_q: ["objection", "competitive", "system", "value"],
+        salescallconv_q: ["objection", "sales", "qualification"],
+        erpchange_q: ["objection", "timing", "erp", "change"],
+        cost_q: ["pricing", "cost", "qualification"],
+        companyinfo_q: ["privacy", "information", "qualification"],
+        nobudget_q: ["objection", "budget", "timing"],
+        noauthority_q: ["objection", "authority", "qualification"],
+        industry_q: ["qualification", "industry", "experience"],
+        corporate_q: ["objection", "authority", "corporate"],
+        internal_q: ["objection", "internal", "value"],
+        personalnumber_q: ["privacy", "personal", "contact"],
+        whatis_q: ["product", "overview"],
+        howgetnumber_q: ["privacy", "contact"],
+        busy_q: ["objection", "timing", "busy"],
+        alreadyusing_q: ["objection", "competitive", "tools"],
+        notrighttime_q: ["objection", "timing", "follow-up"],
+        sendemail_q: ["follow-up", "email", "contact"],
+        notinterested_q: ["objection", "closing", "value"],
+        questionpainpoint_q: ["qualification", "question", "painpoint"],
+        questiontools_q: ["qualification", "question", "tools"],
+        dontohandleap_q: ["objection", "authority", "referral"],
+        notatrighttime_q: ["objection", "timing", "exploration"],
+        triedbefore_q: ["objection", "competitive", "experience"],
+        alreadyusingai_q: ["objection", "competitive", "ai", "qualification"],
+        callmelater_q: ["objection", "timing", "follow-up"],
+      };
+
+      let filtersExpanded = false;
+
       let objections = {
         greeting: {
           title: "Greet Prospect",
@@ -1881,78 +1997,285 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
             "Understood. Just sharing: we cut invoice time from 11 days to under a minute. Open to a future chat if priorities change!",
           tags: ["objection", "closing", "value", "quick"],
         },
+        dontohandleap_q: {
+          title: "I don't handle AP",
+          content:
+            "Got it — thanks for letting me know. Could you connect me with someone who handles AP operations at your company? I'll send a quick intro there. Will you be forwarding it to the relevant person, or is there anyone I should CC directly?",
+          tags: ["objection", "authority", "referral", "quick"],
+        },
+        notatrighttime_q: {
+          title: "We're not looking to make changes right now",
+          content:
+            "I hear you. The great part is, there's nothing to change right now — this would just be a short exploratory call to show what's possible. Even if it's not a fit today, it might give you ideas for when you're ready to optimize later.",
+          tags: ["objection", "timing", "exploration", "quick"],
+        },
+        triedbefore_q: {
+          title: "We tried something like this before, didn't work",
+          content:
+            "I hear you — that's actually a story we hear often. A lot of earlier tools were clunky or required system overhauls. Hyperbots is built to be lightweight, fast to deploy, and sits on top of your ERP, so teams can get results in weeks, not months.",
+          tags: ["objection", "competitive", "experience", "quick"],
+        },
+        alreadyusingai_q: {
+          title: "We're already using AI",
+          content:
+            "That's great! We love hearing that. Out of curiosity — is it automating things like invoice matching, GL coding, or vendor payments? A lot of teams use AI in parts, but we help bring it together across the whole AP process.",
+          tags: ["objection", "competitive", "ai", "qualification", "quick"],
+        },
+        callmelater_q: {
+          title: "Call me back later",
+          content:
+            "Of course — is there a better day or time next week I can quickly check in?",
+          tags: ["objection", "timing", "follow-up", "quick"],
+        },
       };
 
       let currentFilter = "all";
 
       function renderObjections() {
-        const container = document.getElementById("objections-container");
-        const list = document.getElementById("objections-list");
-        container.innerHTML = "";
-        list.innerHTML = "";
+        const filteredContainer = document.getElementById(
+          "filteredQuickAccessButtons"
+        );
+        const filteredSection = document.getElementById("filteredQuickAccess");
+        const dynamicContainer = document.getElementById("dynamicObjections");
 
-        // Update filter tags
+        if (filteredContainer) {
+          filteredContainer.innerHTML = "";
+        }
+
+        if (dynamicContainer) {
+          dynamicContainer.innerHTML = "";
+        }
+
+        // Update filter tags FIRST
         updateFilterTags();
 
+        let hasFilteredResults = false;
+
+        // Handle dynamic objections - render in main content area AND filtered quick access
         Object.entries(objections).forEach(([key, obj]) => {
-          // Skip if not matching current filter
-          if (currentFilter !== "all" && !obj.tags.includes(currentFilter)) {
-            return;
+          // Ensure obj has valid structure
+          if (!obj || typeof obj !== "object") return;
+
+          // Ensure tags is an array
+          const safeTags = Array.isArray(obj.tags) ? obj.tags : ["custom"];
+
+          // Check if matches current filter
+          const matchesFilter =
+            currentFilter === "all" || safeTags.includes(currentFilter);
+
+          // Only render custom objections (user-added ones) in main content area
+          if (
+            matchesFilter &&
+            dynamicContainer &&
+            key.startsWith("custom_objection_")
+          ) {
+            // Ensure tags is an array and all properties exist
+            const safeTags = Array.isArray(obj.tags) ? obj.tags : ["custom"];
+            const safeTitle = obj.title || "Untitled";
+            const safeContent = obj.content || "";
+
+            const objectionCard = document.createElement("div");
+            objectionCard.className = "objection-card";
+            objectionCard.id = `card-${key}`;
+
+            objectionCard.innerHTML = `
+              <div class="objection-header">
+                <div class="objection-title">${safeTitle}</div>
+                <div class="objection-controls">
+                  <button class="edit-btn" onclick="editDynamicObjection('${key}')">Edit</button>
+                  <button class="copy-btn" onclick="copyDynamicObjection('${key}')">Copy</button>
+                  <button class="copy-btn" style="background: var(--danger-color);" onclick="deleteDynamicObjection('${key}')">Delete</button>
+                </div>
+              </div>
+              <div class="tags">
+                ${safeTags
+                  .map((tag) => `<span class="tag">${tag}</span>`)
+                  .join("")}
+              </div>
+              <div class="objection-content" id="content-${key}">${safeContent.replace(
+              /\n/g,
+              "<br>"
+            )}</div>
+              <div class="objection-edit" id="edit-${key}" style="display: none;">
+                <input type="text" class="edit-input" id="title-${key}" value="${safeTitle}" placeholder="Title...">
+                <input type="text" class="edit-input" id="tags-${key}" value="${safeTags.join(
+              ", "
+            )}" placeholder="Tags (comma separated)...">
+                <textarea class="edit-textarea" id="textarea-${key}" placeholder="Content...">${safeContent}</textarea>
+                <button class="save-btn" onclick="saveDynamicObjection('${key}')">Save</button>
+                <button class="cancel-btn" onclick="cancelDynamicEdit('${key}')">Cancel</button>
+              </div>
+            `;
+
+            dynamicContainer.appendChild(objectionCard);
           }
 
-          // Create main card
-          const card = document.createElement("div");
-          card.className = "objection-card";
-          card.innerHTML = `
-                    <div class="objection-header">
-                        <div class="objection-title">${obj.title}</div>
-                        <div class="objection-controls">
-                            <button class="edit-btn" onclick="editObjection('${key}')">Edit</button>
-                            <button class="copy-btn" onclick="copyToClipboard('${key}')">Copy</button>
-                        </div>
-                    </div>
-                    <div class="tags">
-                        ${obj.tags
-                          .map((tag) => `<span class="tag">${tag}</span>`)
-                          .join("")}
-                    </div>
-                    <div class="objection-content" id="content-${key}">
-                        ${obj.content.replace(/\n/g, "<br>")}
-                    </div>
-                    <div class="objection-edit" id="edit-${key}" style="display: none;">
-                        <input type="text" class="edit-input" id="title-${key}" value="${
-            obj.title
-          }" placeholder="Objection title..." />
-                        <input type="text" class="edit-input" id="tags-${key}" value="${obj.tags.join(
-            ", "
-          )}" placeholder="Tags (comma separated)..." />
-                        <textarea class="edit-textarea" id="textarea-${key}">${
-            obj.content
-          }</textarea>
-                        <button class="save-btn" onclick="saveObjection('${key}')">Save</button>
-                        <button class="cancel-btn" onclick="cancelEdit('${key}')">Cancel</button>
-                    </div>
-                `;
-          container.appendChild(card);
+          // Add to filtered Quick Access if filter is active and matches
+          if (matchesFilter && currentFilter !== "all" && filteredContainer) {
+            const quickButton = document.createElement("button");
+            quickButton.className = "button";
+            quickButton.style.marginBottom = "5px";
+            quickButton.style.position = "relative";
+            quickButton.textContent = obj.title;
+            quickButton.onclick = () => {
+              // Scroll to the objection card in main content
+              const card = document.getElementById(`card-${key}`);
+              if (card) {
+                card.scrollIntoView({ behavior: "smooth", block: "center" });
+                card.style.border = "2px solid var(--primary-color)";
+                setTimeout(() => {
+                  card.style.border = "";
+                }, 2000);
+              }
+            };
 
-          // Create quick access button
-          const button = document.createElement("button");
-          button.className = "button";
-          button.textContent = obj.title;
-          button.onclick = () => {
-            const element = document.getElementById(`content-${key}`);
-            element.scrollIntoView({ behavior: "smooth" });
-          };
-          list.appendChild(button);
+            // Add a small delete icon on hover
+            quickButton.onmouseenter = () => {
+              const deleteIcon = document.createElement("span");
+              deleteIcon.innerHTML = "×";
+              deleteIcon.style.position = "absolute";
+              deleteIcon.style.top = "2px";
+              deleteIcon.style.right = "5px";
+              deleteIcon.style.fontSize = "12px";
+              deleteIcon.style.color = "var(--danger-color)";
+              deleteIcon.style.cursor = "pointer";
+              deleteIcon.style.fontWeight = "bold";
+              deleteIcon.onclick = (e) => {
+                e.stopPropagation();
+                deleteDynamicObjection(key);
+              };
+              deleteIcon.title = "Delete objection";
+              quickButton.appendChild(deleteIcon);
+            };
+
+            quickButton.onmouseleave = () => {
+              const deleteIcon = quickButton.querySelector("span");
+              if (deleteIcon) deleteIcon.remove();
+            };
+
+            filteredContainer.appendChild(quickButton);
+            hasFilteredResults = true;
+          }
         });
+
+        // Handle static responses - show/hide based on filter and add to filtered quick access
+        Object.entries(staticResponseTags).forEach(([responseId, tags]) => {
+          const matchesFilter =
+            currentFilter === "all" || tags.includes(currentFilter);
+
+          const responseButton = document.querySelector(
+            `button[onclick="toggle('${responseId}')"]`
+          );
+          const responseDiv = document.getElementById(responseId);
+
+          // Check if this response has been deleted/hidden
+          const isDeleted =
+            localStorage.getItem(`deleted_${responseId}`) === "true";
+
+          if (responseButton && responseDiv && !isDeleted) {
+            // Show/hide the button based on filter
+            responseButton.style.display = matchesFilter ? "block" : "none";
+
+            // Add to filtered Quick Access if filter is active and matches
+            if (currentFilter !== "all" && matchesFilter && filteredContainer) {
+              const quickButton = document.createElement("button");
+              quickButton.className = "button";
+              quickButton.style.marginBottom = "5px";
+              quickButton.style.position = "relative";
+              quickButton.textContent = responseButton.textContent;
+              quickButton.onclick = () => {
+                // Scroll to the static response and open it
+                responseButton.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+                // Open the response if it's not already open
+                if (
+                  responseDiv.style.display === "none" ||
+                  responseDiv.style.display === ""
+                ) {
+                  toggle(responseId);
+                }
+                // Highlight temporarily
+                responseDiv.style.border = "2px solid var(--primary-color)";
+                setTimeout(() => {
+                  responseDiv.style.border = "";
+                }, 2000);
+              };
+
+              // Add a small delete icon on hover
+              quickButton.onmouseenter = () => {
+                const deleteIcon = document.createElement("span");
+                deleteIcon.innerHTML = "×";
+                deleteIcon.style.position = "absolute";
+                deleteIcon.style.top = "2px";
+                deleteIcon.style.right = "5px";
+                deleteIcon.style.fontSize = "12px";
+                deleteIcon.style.color = "var(--danger-color)";
+                deleteIcon.style.cursor = "pointer";
+                deleteIcon.style.fontWeight = "bold";
+                deleteIcon.onclick = (e) => {
+                  e.stopPropagation();
+                  deleteStaticResponse(responseId);
+                };
+                deleteIcon.title = "Hide static response";
+                quickButton.appendChild(deleteIcon);
+              };
+
+              quickButton.onmouseleave = () => {
+                const deleteIcon = quickButton.querySelector("span");
+                if (deleteIcon) deleteIcon.remove();
+              };
+
+              filteredContainer.appendChild(quickButton);
+              hasFilteredResults = true;
+            }
+          }
+        });
+
+        // Show/hide filtered section based on results
+        if (filteredSection) {
+          filteredSection.style.display = hasFilteredResults ? "block" : "none";
+        }
+
+        // Ensure all static responses have delete buttons
+        ensureDeleteButtons();
+      }
+
+      function toggleMoreFilters() {
+        const filterContainer = document.getElementById("filterTags");
+        const moreBtn = document.getElementById("moreFiltersBtn");
+
+        filtersExpanded = !filtersExpanded;
+
+        if (filtersExpanded) {
+          filterContainer.classList.remove("collapsed");
+          moreBtn.textContent = "-less filters";
+        } else {
+          filterContainer.classList.add("collapsed");
+          moreBtn.textContent = "+more filters";
+        }
       }
 
       function updateFilterTags() {
         const filterContainer = document.getElementById("filterTags");
+        if (!filterContainer) {
+          console.error("filterTags container not found!");
+          return;
+        }
+
         const allTags = new Set();
 
+        // Add tags from dynamic objections
         Object.values(objections).forEach((obj) => {
-          obj.tags.forEach((tag) => allTags.add(tag));
+          if (obj.tags && Array.isArray(obj.tags)) {
+            obj.tags.forEach((tag) => allTags.add(tag));
+          }
+        });
+
+        // Add tags from static responses
+        Object.values(staticResponseTags).forEach((tags) => {
+          tags.forEach((tag) => allTags.add(tag));
         });
 
         filterContainer.innerHTML = "";
@@ -1978,17 +2301,109 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
             tagEl.onclick = () => filterByTag(tag);
             filterContainer.appendChild(tagEl);
           });
+
+        // Update existing tags dropdown for new objection form
+        updateExistingTagsDropdown(allTags);
+      }
+
+      function updateExistingTagsDropdown(allTags) {
+        const dropdown = document.getElementById("existingTags");
+        if (!dropdown) {
+          console.error("existingTags dropdown not found!");
+          return;
+        }
+
+        dropdown.innerHTML = "";
+
+        // Comprehensive default tags based on all objections
+        const defaultTags = [
+          "objection",
+          "qualification",
+          "pricing",
+          "cost",
+          "budget",
+          "authority",
+          "timing",
+          "competitive",
+          "product",
+          "overview",
+          "sales",
+          "privacy",
+          "contact",
+          "industry",
+          "experience",
+          "value",
+          "internal",
+          "question",
+          "follow-up",
+          "closing",
+          "email",
+          "busy",
+          "tools",
+          "ai",
+          "quick",
+          "start",
+          "greeting",
+          "security",
+          "data",
+          "benefits",
+          "education",
+          "erp",
+          "change",
+          "corporate",
+          "personal",
+          "source",
+          "threat",
+          "referral",
+          "exploration",
+          "painpoint",
+          "system",
+          "business",
+          "discovery",
+          "process",
+          "automation",
+          "efficiency",
+          "integration",
+          "demo",
+          "meeting",
+          "call",
+          "schedule",
+          "booking",
+          "interested",
+        ];
+
+        // Combine existing tags with defaults
+        const combinedTags = new Set([...Array.from(allTags), ...defaultTags]);
+
+        Array.from(combinedTags)
+          .sort()
+          .forEach((tag) => {
+            const option = document.createElement("option");
+            option.value = tag;
+            option.textContent = tag;
+            dropdown.appendChild(option);
+          });
       }
 
       function filterByTag(tag) {
-        currentFilter = tag;
+        // Toggle filter: if clicking the same filter, reset to "all"
+        if (currentFilter === tag && tag !== "all") {
+          currentFilter = "all";
+        } else {
+          currentFilter = tag;
+        }
+
+        // Update filter tag appearance
         document.querySelectorAll(".filter-tag").forEach((el) => {
-          el.classList.toggle(
-            "active",
-            el.textContent === tag ||
-              (tag === "all" && el.textContent === "All")
-          );
+          el.classList.remove("active");
+          if (
+            (currentFilter === "all" && el.textContent === "All") ||
+            (currentFilter !== "all" && el.textContent === currentFilter)
+          ) {
+            el.classList.add("active");
+          }
         });
+
         renderObjections();
       }
 
@@ -1998,74 +2413,75 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
           .value.toLowerCase();
 
         if (searchTerm === "") {
-          // If search is empty, show everything
+          // If search is empty, show everything based on current filter
           renderObjections();
           document.querySelectorAll(".section").forEach((section) => {
             section.style.display = "block";
           });
-          document
-            .querySelectorAll(".quick-access-buttons .button")
-            .forEach((button) => {
-              button.style.display = "block";
-            });
-          document
-            .querySelectorAll(".quick-access-buttons .response")
-            .forEach((response) => {
-              response.style.display = "none"; // Reset to hidden
-            });
           return;
         }
 
-        // Search dynamic objections
-        Object.entries(objections).forEach(([key, obj]) => {
-          const card = document.querySelector(`#content-${key}`)?.parentElement;
-          if (card) {
-            const matches =
-              obj.title.toLowerCase().includes(searchTerm) ||
-              obj.content.toLowerCase().includes(searchTerm) ||
-              obj.tags.some((tag) => tag.toLowerCase().includes(searchTerm));
+        // Search static responses in sidebar based on current filter and search term
+        Object.entries(staticResponseTags).forEach(([responseId, tags]) => {
+          const responseButton = document.querySelector(
+            `button[onclick="toggle('${responseId}')"]`
+          );
+          const responseDiv = document.getElementById(responseId);
 
+          if (responseButton && responseDiv) {
+            const buttonText = responseButton.textContent.toLowerCase();
+            const responseText = responseDiv.textContent.toLowerCase();
+
+            // Check if matches search term
+            const searchMatches =
+              buttonText.includes(searchTerm) ||
+              responseText.includes(searchTerm) ||
+              tags.some((tag) => tag.toLowerCase().includes(searchTerm));
+
+            // Check if matches current filter
             const filterMatches =
-              currentFilter === "all" || obj.tags.includes(currentFilter);
+              currentFilter === "all" || tags.includes(currentFilter);
 
-            card.style.display = matches && filterMatches ? "block" : "none";
+            // Check if deleted
+            const isDeleted =
+              localStorage.getItem(`deleted_${responseId}`) === "true";
+
+            // Show only if search matches, filter matches, and not deleted
+            responseButton.style.display =
+              searchMatches && filterMatches && !isDeleted ? "block" : "none";
           }
         });
 
-        // Search static HTML sections (main content)
+        // Search dynamic objections (custom ones)
+        Object.entries(objections).forEach(([key, obj]) => {
+          // Only search custom objections that are rendered as cards
+          if (key.startsWith("custom_objection_")) {
+            const card = document.querySelector(`#card-${key}`);
+            if (card && obj && typeof obj === "object") {
+              const safeTags = Array.isArray(obj.tags) ? obj.tags : ["custom"];
+              const safeTitle = obj.title || "";
+              const safeContent = obj.content || "";
+
+              const matches =
+                safeTitle.toLowerCase().includes(searchTerm) ||
+                safeContent.toLowerCase().includes(searchTerm) ||
+                safeTags.some((tag) => tag.toLowerCase().includes(searchTerm));
+
+              const filterMatches =
+                currentFilter === "all" || safeTags.includes(currentFilter);
+
+              card.style.display = matches && filterMatches ? "block" : "none";
+            }
+          }
+        });
+
+        // Search static HTML sections (main content) - call script, etc.
         document.querySelectorAll(".section").forEach((section) => {
           const sectionText = section.textContent.toLowerCase();
           section.style.display = sectionText.includes(searchTerm)
             ? "block"
             : "none";
         });
-
-        // Search Quick Access buttons in sidebar
-        document
-          .querySelectorAll(".quick-access-buttons .button")
-          .forEach((button) => {
-            const buttonText = button.textContent.toLowerCase();
-            const onclickAttr = button.getAttribute("onclick");
-            if (onclickAttr) {
-              const match = onclickAttr.match(/'([^']+)'/);
-              if (match) {
-                const responseId = match[1];
-                const responseElement = document.getElementById(responseId);
-                const responseText = responseElement
-                  ? responseElement.textContent.toLowerCase()
-                  : "";
-
-                if (
-                  buttonText.includes(searchTerm) ||
-                  responseText.includes(searchTerm)
-                ) {
-                  button.style.display = "block";
-                } else {
-                  button.style.display = "none";
-                }
-              }
-            }
-          });
       }
 
       function editObjection(key) {
@@ -2109,7 +2525,9 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
             document.getElementById(key + "-content") ||
             document.getElementById(key);
           if (contentDiv) {
-            text = contentDiv.textContent.replace(/Edit|Copy/g, "").trim();
+            text = contentDiv.textContent
+              .replace(/Edit|Copy|Delete/g, "")
+              .trim();
           }
         }
 
@@ -2120,40 +2538,385 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
         }
       }
 
+      function deleteObjection(key) {
+        if (
+          confirm(
+            `Are you sure you want to delete "${
+              objections[key]?.title || key
+            }"?`
+          )
+        ) {
+          if (objections[key]) {
+            // Delete dynamic objection
+            delete objections[key];
+            localStorage.setItem("objections", JSON.stringify(objections));
+            renderObjections();
+            alert("Objection deleted successfully!");
+          }
+        }
+      }
+
+      // Functions for dynamic objection management
+      function editDynamicObjection(key) {
+        document.getElementById(`content-${key}`).style.display = "none";
+        document.getElementById(`edit-${key}`).style.display = "block";
+      }
+
+      function cancelDynamicEdit(key) {
+        document.getElementById(`content-${key}`).style.display = "block";
+        document.getElementById(`edit-${key}`).style.display = "none";
+      }
+
+      function saveDynamicObjection(key) {
+        const newTitle = document.getElementById(`title-${key}`).value.trim();
+        const newTags = document
+          .getElementById(`tags-${key}`)
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+        const newContent = document
+          .getElementById(`textarea-${key}`)
+          .value.trim();
+
+        if (!newTitle || !newContent) {
+          alert("Please fill in title and content");
+          return;
+        }
+
+        objections[key] = {
+          title: newTitle,
+          content: newContent,
+          tags: newTags.length > 0 ? newTags : ["custom"],
+        };
+
+        localStorage.setItem("objections", JSON.stringify(objections));
+        renderObjections();
+        alert("Objection updated successfully!");
+      }
+
+      function copyDynamicObjection(key) {
+        const obj = objections[key];
+        if (obj) {
+          const text = `${obj.title}\n\nTags: ${obj.tags.join(", ")}\n\n${
+            obj.content
+          }`;
+          navigator.clipboard.writeText(text).then(() => {
+            alert("Objection copied to clipboard!");
+          });
+        }
+      }
+
+      function deleteDynamicObjection(key) {
+        if (
+          confirm(
+            `Are you sure you want to delete "${
+              objections[key]?.title || key
+            }"?`
+          )
+        ) {
+          if (objections[key]) {
+            // Save to deleted objections for restoration
+            const deletedObjections = localStorage.getItem("deletedObjections");
+            const deleted = deletedObjections
+              ? JSON.parse(deletedObjections)
+              : {};
+            deleted[key] = objections[key];
+            localStorage.setItem("deletedObjections", JSON.stringify(deleted));
+
+            // Remove from active objections
+            delete objections[key];
+            localStorage.setItem("objections", JSON.stringify(objections));
+            renderObjections();
+            alert("Objection deleted successfully!");
+          }
+        }
+      }
+
+      function restoreCustomObjection(key, objData) {
+        // Add back to active objections
+        objections[key] = objData;
+        localStorage.setItem("objections", JSON.stringify(objections));
+
+        // Remove from deleted objections
+        const deletedObjections = localStorage.getItem("deletedObjections");
+        if (deletedObjections) {
+          const deleted = JSON.parse(deletedObjections);
+          delete deleted[key];
+          localStorage.setItem("deletedObjections", JSON.stringify(deleted));
+        }
+
+        renderObjections();
+        alert(`Custom objection "${objData.title}" restored successfully!`);
+      }
+
+      function deleteStaticResponse(key) {
+        if (
+          confirm(
+            `Are you sure you want to delete this response? This will hide it from the interface.`
+          )
+        ) {
+          // Hide the static response by setting a flag in localStorage
+          localStorage.setItem(`deleted_${key}`, "true");
+          const responseButton = document.querySelector(
+            `button[onclick="toggle('${key}')"]`
+          );
+          const responseDiv = document.getElementById(key);
+
+          if (responseButton) responseButton.style.display = "none";
+          if (responseDiv) responseDiv.style.display = "none";
+
+          // Re-render to update filtered quick access
+          renderObjections();
+          alert("Static response hidden successfully!");
+        }
+      }
+
+      function restoreStaticResponse(key) {
+        localStorage.removeItem(`deleted_${key}`);
+        const responseButton = document.querySelector(
+          `button[onclick="toggle('${key}')"]`
+        );
+        const responseDiv = document.getElementById(key);
+
+        if (responseButton) responseButton.style.display = "block";
+        if (responseDiv) responseDiv.style.display = "none"; // Reset to hidden
+
+        renderObjections();
+        alert("Static response restored successfully!");
+      }
+
+      function showRestoreMenu() {
+        const deletedResponses = [];
+
+        // Check for deleted static responses
+        Object.keys(staticResponseTags).forEach((key) => {
+          if (localStorage.getItem(`deleted_${key}`) === "true") {
+            const responseButton = document.querySelector(
+              `button[onclick="toggle('${key}')"]`
+            );
+            if (responseButton) {
+              deletedResponses.push({
+                key: key,
+                title: responseButton.textContent.trim(),
+                type: "static",
+              });
+            }
+          }
+        });
+
+        // Check for deleted custom objections
+        const deletedObjections = localStorage.getItem("deletedObjections");
+        if (deletedObjections) {
+          const parsed = JSON.parse(deletedObjections);
+          Object.entries(parsed).forEach(([key, obj]) => {
+            if (obj && obj.title) {
+              deletedResponses.push({
+                key: key,
+                title: obj.title,
+                type: "custom",
+                data: obj,
+              });
+            }
+          });
+        }
+
+        if (deletedResponses.length === 0) {
+          alert("No deleted responses to restore!");
+          return;
+        }
+
+        let restoreMenu = "Select responses to restore:\n\n";
+        deletedResponses.forEach((response, index) => {
+          restoreMenu += `${index + 1}. ${response.title} (${response.type})\n`;
+        });
+        restoreMenu +=
+          "\nEnter the numbers (comma-separated) of responses to restore:";
+
+        const selection = prompt(restoreMenu);
+        if (selection) {
+          const selectedIndices = selection
+            .split(",")
+            .map((s) => parseInt(s.trim()) - 1);
+          selectedIndices.forEach((index) => {
+            if (index >= 0 && index < deletedResponses.length) {
+              const response = deletedResponses[index];
+              if (response.type === "static") {
+                restoreStaticResponse(response.key);
+              } else if (response.type === "custom") {
+                restoreCustomObjection(response.key, response.data);
+              }
+            }
+          });
+        }
+      }
+
       function toggleAddForm() {
         const form = document.getElementById("addForm");
-        form.style.display = form.style.display === "none" ? "block" : "none";
-        if (form.style.display === "block") {
+        const isVisible = form.style.display === "block";
+        form.style.display = isVisible ? "none" : "block";
+
+        if (!isVisible) {
           document.getElementById("newTitle").value = "";
           document.getElementById("newTags").value = "";
           document.getElementById("newContent").value = "";
+          clearSelectedTags();
+          // Force populate dropdown with all available tags
+          const allTags = new Set();
+
+          // Safely iterate over objections
+          if (objections && typeof objections === "object") {
+            Object.values(objections).forEach((obj) => {
+              if (obj && obj.tags && Array.isArray(obj.tags)) {
+                obj.tags.forEach((tag) => allTags.add(tag));
+              }
+            });
+          }
+
+          // Add tags from static responses too
+          Object.values(staticResponseTags).forEach((tags) => {
+            if (Array.isArray(tags)) {
+              tags.forEach((tag) => allTags.add(tag));
+            }
+          });
+
+          updateExistingTagsDropdown(allTags);
+        }
+      }
+
+      function getAllTags() {
+        const allTags = new Set();
+        Object.values(objections).forEach((obj) => {
+          obj.tags.forEach((tag) => allTags.add(tag));
+        });
+        return allTags;
+      }
+
+      function clearSelectedTags() {
+        const display = document.getElementById("selectedTagsDisplay");
+        if (display) display.innerHTML = "";
+        const dropdown = document.getElementById("existingTags");
+        if (dropdown) {
+          Array.from(dropdown.options).forEach(
+            (option) => (option.selected = false)
+          );
         }
       }
 
       function addNewObjection() {
-        const title = document.getElementById("newTitle").value;
-        const tags = document
-          .getElementById("newTags")
-          .value.split(",")
-          .map((t) => t.trim())
-          .filter((t) => t);
-        const content = document.getElementById("newContent").value;
+        const title = document.getElementById("newTitle").value.trim();
+        const content = document.getElementById("newContent").value.trim();
+
+        // Get tags from dropdown and new tags input
+        const dropdown = document.getElementById("existingTags");
+        const selectedTags = dropdown
+          ? Array.from(dropdown.selectedOptions).map((option) => option.value)
+          : [];
+
+        const newTagsInput = document.getElementById("newTags");
+        const newTags = newTagsInput
+          ? newTagsInput.value
+              .split(",")
+              .map((t) => t.trim())
+              .filter((t) => t)
+          : [];
+
+        const allTags = [...new Set([...selectedTags, ...newTags])];
 
         if (!title || !content) {
           alert("Please fill in title and content");
           return;
         }
 
-        const key = "objection_" + Date.now();
-        objections[key] = { title, content, tags };
+        const key = "custom_objection_" + Date.now();
+        objections[key] = {
+          title: title,
+          content: content,
+          tags: allTags.length > 0 ? allTags : ["custom"],
+        };
 
+        console.log("Adding new objection:", objections[key]);
+
+        // Save to localStorage
         localStorage.setItem("objections", JSON.stringify(objections));
+
+        // Close the form
         toggleAddForm();
 
-        // Force immediate re-render
-        setTimeout(() => {
-          renderObjections();
-        }, 0);
+        // Re-render everything
+        renderObjections();
+
+        // Add buttons to the new objection
+        addEditButtonsToAllResponses();
+
+        alert(`New objection "${title}" added successfully!`);
+      }
+
+      // Add event listeners for tag selection
+      document.addEventListener("DOMContentLoaded", function () {
+        const existingTagsDropdown = document.getElementById("existingTags");
+        const newTagsInput = document.getElementById("newTags");
+
+        if (existingTagsDropdown) {
+          existingTagsDropdown.addEventListener(
+            "change",
+            updateSelectedTagsDisplay
+          );
+        }
+
+        if (newTagsInput) {
+          newTagsInput.addEventListener("input", updateSelectedTagsDisplay);
+        }
+      });
+
+      function updateSelectedTagsDisplay() {
+        const selectedOptions = Array.from(
+          document.getElementById("existingTags").selectedOptions
+        );
+        const newTags = document
+          .getElementById("newTags")
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+
+        const allSelectedTags = [
+          ...selectedOptions.map((opt) => opt.value),
+          ...newTags,
+        ];
+
+        const display = document.getElementById("selectedTagsDisplay");
+        display.innerHTML = "";
+
+        allSelectedTags.forEach((tag) => {
+          if (tag) {
+            const tagSpan = document.createElement("span");
+            tagSpan.className = "tag";
+            tagSpan.textContent = tag;
+            tagSpan.style.cursor = "pointer";
+            tagSpan.onclick = () => removeTag(tag);
+            display.appendChild(tagSpan);
+          }
+        });
+      }
+
+      function removeTag(tagToRemove) {
+        // Remove from dropdown selection
+        const dropdown = document.getElementById("existingTags");
+        Array.from(dropdown.options).forEach((option) => {
+          if (option.value === tagToRemove) {
+            option.selected = false;
+          }
+        });
+
+        // Remove from new tags input
+        const newTagsInput = document.getElementById("newTags");
+        const currentTags = newTagsInput.value
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+        const filteredTags = currentTags.filter((tag) => tag !== tagToRemove);
+        newTagsInput.value = filteredTags.join(", ");
+
+        updateSelectedTagsDisplay();
       }
 
       // Toggle function for static HTML sections
@@ -2177,6 +2940,86 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
             element.style.display = "none";
           }
         }
+      }
+
+      // Function to edit quick access responses
+      function editQuickResponse(id) {
+        const responseDiv = document.getElementById(id);
+        if (!responseDiv) return;
+
+        // Get current text content, excluding buttons
+        let currentText = "";
+        const nodes = Array.from(responseDiv.childNodes);
+        for (let node of nodes) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            currentText += node.textContent;
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.tagName === "BR") {
+              currentText += "\n";
+            } else if (node.tagName === "B") {
+              currentText += node.textContent;
+            } else if (node.tagName === "EM") {
+              currentText += node.textContent;
+            } else if (
+              !node.classList.contains("copy-btn") &&
+              !node.classList.contains("edit-btn") &&
+              node.style.marginTop !== "10px"
+            ) {
+              currentText += node.textContent;
+            }
+          }
+        }
+        currentText = currentText.trim();
+
+        // Create edit interface
+        const editDiv = document.createElement("div");
+        editDiv.innerHTML = `
+          <textarea class="edit-textarea" style="width: 100%; min-height: 100px; margin: 10px 0;" id="edit-${id}">${currentText}</textarea>
+          <div>
+            <button class="save-btn" onclick="saveQuickResponse('${id}')">Save</button>
+            <button class="cancel-btn" onclick="cancelQuickEdit('${id}')">Cancel</button>
+          </div>
+        `;
+
+        // Hide original content and show edit interface
+        responseDiv.style.display = "none";
+        responseDiv.parentNode.insertBefore(editDiv, responseDiv.nextSibling);
+        editDiv.id = "edit-interface-" + id;
+      }
+
+      function saveQuickResponse(id) {
+        const textarea = document.getElementById("edit-" + id);
+        const responseDiv = document.getElementById(id);
+        const editInterface = document.getElementById("edit-interface-" + id);
+
+        if (textarea && responseDiv) {
+          // Save the new content
+          const newContent = textarea.value;
+
+          // Get the buttons HTML to preserve them
+          const buttonsHtml = responseDiv.querySelector(
+            'div[style*="margin-top: 10px"]'
+          ).outerHTML;
+
+          // Update the response content
+          responseDiv.innerHTML =
+            newContent.replace(/\n/g, "<br>") + buttonsHtml;
+
+          // Save to localStorage
+          localStorage.setItem("quick_" + id, newContent);
+
+          // Show original div and remove edit interface
+          responseDiv.style.display = "block";
+          editInterface.remove();
+        }
+      }
+
+      function cancelQuickEdit(id) {
+        const responseDiv = document.getElementById(id);
+        const editInterface = document.getElementById("edit-interface-" + id);
+
+        responseDiv.style.display = "block";
+        editInterface.remove();
       }
 
       // Edit static response
@@ -2299,38 +3142,68 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
           "notinterested_q",
           "questionpainpoint_q",
           "questiontools_q",
+          "dontohandleap_q",
+          "notatrighttime_q",
+          "triedbefore_q",
+          "alreadyusingai_q",
+          "callmelater_q",
         ];
 
         responseIds.forEach((id) => {
           const responseDiv = document.getElementById(id);
-          if (responseDiv && !document.getElementById(id + "-content")) {
-            const originalContent = responseDiv.innerHTML;
-            const textContent = responseDiv.textContent
-              .replace(/Copy|Edit/g, "")
-              .trim();
+          if (responseDiv) {
+            // Check if it already has edit functionality
+            if (!document.getElementById(id + "-content")) {
+              const originalContent = responseDiv.innerHTML;
+              const textContent = responseDiv.textContent
+                .replace(/Copy|Edit/g, "")
+                .trim();
 
-            responseDiv.innerHTML = `
-              <div id="${id}-content">
-                ${originalContent.replace(
-                  /(<button[^>]*class="[^"]*btn[^>]*>.*?<\/button>)/g,
-                  ""
-                )}
-              </div>
-              <div id="${id}-edit" style="display: none;">
-                <textarea class="edit-textarea" id="${id}-textarea">${textContent}</textarea>
-                <button class="save-btn" onclick="saveStaticResponse('${id}')">Save</button>
-                <button class="cancel-btn" onclick="cancelStaticEdit('${id}')">Cancel</button>
-              </div>
-              <button class="edit-btn" onclick="editStaticResponse('${id}')">Edit</button>
-              <button class="copy-btn" onclick="copyToClipboard('${id}')">Copy</button>
-            `;
+              responseDiv.innerHTML = `
+                <div id="${id}-content">
+                  ${originalContent.replace(
+                    /(<button[^>]*class="[^"]*btn[^>]*>.*?<\/button>)/g,
+                    ""
+                  )}
+                </div>
+                <div id="${id}-edit" style="display: none;">
+                  <textarea class="edit-textarea" id="${id}-textarea">${textContent}</textarea>
+                  <button class="save-btn" onclick="saveStaticResponse('${id}')">Save</button>
+                  <button class="cancel-btn" onclick="cancelStaticEdit('${id}')">Cancel</button>
+                </div>
+                <button class="edit-btn" onclick="editStaticResponse('${id}')">Edit</button>
+                <button class="copy-btn" onclick="copyToClipboard('${id}')">Copy</button>
+              `;
+            } else {
+              // If it already has content div, just ensure edit and copy buttons exist
+              if (!responseDiv.querySelector(".edit-btn")) {
+                const editBtn = document.createElement("button");
+                editBtn.className = "edit-btn";
+                editBtn.textContent = "Edit";
+                editBtn.onclick = () => editStaticResponse(id);
+                responseDiv.appendChild(editBtn);
+              }
+
+              if (!responseDiv.querySelector(".copy-btn")) {
+                const copyBtn = document.createElement("button");
+                copyBtn.className = "copy-btn";
+                copyBtn.textContent = "Copy";
+                copyBtn.onclick = () => copyToClipboard(id);
+                responseDiv.appendChild(copyBtn);
+              }
+            }
 
             // Load saved content if exists
             const savedContent = localStorage.getItem("static_" + id);
             if (savedContent) {
-              document.getElementById(id + "-content").innerHTML =
-                savedContent.replace(/\n/g, "<br>");
-              document.getElementById(id + "-textarea").value = savedContent;
+              const contentDiv = document.getElementById(id + "-content");
+              const textarea = document.getElementById(id + "-textarea");
+              if (contentDiv) {
+                contentDiv.innerHTML = savedContent.replace(/\n/g, "<br>");
+              }
+              if (textarea) {
+                textarea.value = savedContent;
+              }
             }
           }
         });
@@ -2338,10 +3211,48 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
 
       // Initialize on page load
       window.onload = function () {
+        // Clear old objections and start fresh - only keep custom ones
         const savedObjections = localStorage.getItem("objections");
         if (savedObjections) {
-          objections = { ...objections, ...JSON.parse(savedObjections) };
+          const parsed = JSON.parse(savedObjections);
+          // Only keep custom objections (user-added ones)
+          const customObjections = {};
+          Object.entries(parsed).forEach(([key, obj]) => {
+            if (key.startsWith("custom_objection_")) {
+              customObjections[key] = obj;
+            }
+          });
+          objections = customObjections;
+          // Update localStorage with cleaned data
+          localStorage.setItem("objections", JSON.stringify(objections));
+        } else {
+          // No saved objections, start with empty object
+          objections = {};
         }
+
+        // Apply deleted response states
+        Object.keys(staticResponseTags).forEach((key) => {
+          if (localStorage.getItem(`deleted_${key}`) === "true") {
+            const responseButton = document.querySelector(
+              `button[onclick="toggle('${key}')"]`
+            );
+            const responseDiv = document.getElementById(key);
+            if (responseButton) responseButton.style.display = "none";
+            if (responseDiv) responseDiv.style.display = "none";
+          }
+        });
+
+        // Initialize and render everything
+        console.log("Initializing objections:", Object.keys(objections).length);
+        console.log(
+          "Static response tags:",
+          Object.keys(staticResponseTags).length
+        );
+
+        // Add buttons to all responses first
+        addEditButtonsToAllResponses();
+
+        // Then render and filter
         renderObjections();
 
         const savedNotes = localStorage.getItem("callNotes");
@@ -2356,9 +3267,136 @@ Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyp
           document.getElementById("callScriptTextarea").value = savedCallScript;
         }
 
-        // Add edit functionality to all static responses
-        addEditToStaticResponses();
+        // Load saved quick response edits
+        loadSavedQuickResponses();
+
+        // Debug: Check if buttons were added
+        console.log("Checking buttons for responses...");
+        Object.keys(staticResponseTags).forEach((id) => {
+          const responseDiv = document.getElementById(id);
+          if (responseDiv) {
+            const deleteBtn = responseDiv.querySelector(
+              'button[style*="background: var(--danger-color)"]'
+            );
+            console.log(
+              `Response ${id}: Delete button exists = ${!!deleteBtn}`
+            );
+          }
+        });
       };
+
+      function loadSavedQuickResponses() {
+        const quickResponseIds = [
+          "systeminplaceall_q",
+          "salescallconv_q",
+          "erpchange_q",
+          "cost_q",
+          "companyinfo_q",
+          "nobudget_q",
+          "noauthority_q",
+          "industry_q",
+          "corporate_q",
+          "internal_q",
+          "personalnumber_q",
+          "whatis_q",
+          "howgetnumber_q",
+          "busy_q",
+          "alreadyusing_q",
+          "notrighttime_q",
+          "sendemail_q",
+          "notinterested_q",
+          "questionpainpoint_q",
+          "questiontools_q",
+          "dontohandleap_q",
+          "notatrighttime_q",
+          "triedbefore_q",
+          "alreadyusingai_q",
+          "callmelater_q",
+        ];
+
+        quickResponseIds.forEach((id) => {
+          const saved = localStorage.getItem("quick_" + id);
+          if (saved) {
+            const responseDiv = document.getElementById(id);
+            if (responseDiv) {
+              const buttonsHtml =
+                responseDiv.querySelector('div[style*="margin-top: 10px"]')
+                  ?.outerHTML || "";
+              responseDiv.innerHTML =
+                saved.replace(/\n/g, "<br>") + buttonsHtml;
+            }
+          }
+        });
+      }
+
+      function ensureDeleteButtons() {
+        // Get all response IDs from staticResponseTags
+        Object.keys(staticResponseTags).forEach((id) => {
+          const responseDiv = document.getElementById(id);
+          if (responseDiv) {
+            ensureButtonsForResponse(id, responseDiv);
+          }
+        });
+      }
+
+      function ensureButtonsForResponse(id, responseDiv) {
+        // First, remove any loose buttons that aren't in a proper container
+        const looseButtons = Array.from(responseDiv.children).filter(
+          (child) =>
+            child.tagName === "BUTTON" &&
+            (child.classList.contains("edit-btn") ||
+              child.classList.contains("copy-btn"))
+        );
+        looseButtons.forEach((button) => button.remove());
+
+        // Check if buttons container exists
+        let buttonsContainer = responseDiv.querySelector(
+          'div[style*="margin-top: 10px"]'
+        );
+
+        if (!buttonsContainer) {
+          // Create buttons container
+          buttonsContainer = document.createElement("div");
+          buttonsContainer.style.marginTop = "10px";
+          responseDiv.appendChild(buttonsContainer);
+        }
+
+        // Clear existing buttons in container to avoid duplicates
+        buttonsContainer.innerHTML = "";
+
+        // Add Edit button
+        const editBtn = document.createElement("button");
+        editBtn.className = "edit-btn";
+        editBtn.textContent = "Edit";
+        editBtn.onclick = () => editQuickResponse(id);
+        buttonsContainer.appendChild(editBtn);
+
+        // Add Copy button
+        const copyBtn = document.createElement("button");
+        copyBtn.className = "copy-btn";
+        copyBtn.textContent = "Copy";
+        copyBtn.onclick = () => copyToClipboard(id);
+        buttonsContainer.appendChild(copyBtn);
+
+        // Add Delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "copy-btn";
+        deleteBtn.style.background = "var(--danger-color)";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.onclick = () => deleteStaticResponse(id);
+        buttonsContainer.appendChild(deleteBtn);
+      }
+
+      function addEditButtonsToAllResponses() {
+        const quickResponseIds = Object.keys(staticResponseTags);
+
+        quickResponseIds.forEach((id) => {
+          const responseDiv = document.getElementById(id);
+          if (responseDiv) {
+            ensureButtonsForResponse(id, responseDiv);
+          }
+        });
+      }
 
       // Auto-save notes
       document
