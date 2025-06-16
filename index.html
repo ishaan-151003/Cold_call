@@ -2947,6 +2947,14 @@ Great! Could you please confirm your email so I can send over a calendar invite 
         const responseDiv = document.getElementById(id);
         if (!responseDiv) return;
 
+        // Get the button that triggers this response to get the current title
+        const triggerButton = document.querySelector(
+          `button[onclick="toggle('${id}')"]`
+        );
+        const currentTitle = triggerButton
+          ? triggerButton.textContent.trim()
+          : "";
+
         // Get current text content, excluding buttons
         let currentText = "";
         const nodes = Array.from(responseDiv.childNodes);
@@ -2971,10 +2979,17 @@ Great! Could you please confirm your email so I can send over a calendar invite 
         }
         currentText = currentText.trim();
 
+        // Get current tags for this response
+        const currentTags = staticResponseTags[id] || [];
+
         // Create edit interface
         const editDiv = document.createElement("div");
         editDiv.innerHTML = `
-          <textarea class="edit-textarea" style="width: 100%; min-height: 100px; margin: 10px 0;" id="edit-${id}">${currentText}</textarea>
+          <input type="text" class="edit-input" style="width: 100%; margin: 5px 0;" id="edit-title-${id}" value="${currentTitle}" placeholder="Question/Title...">
+          <input type="text" class="edit-input" style="width: 100%; margin: 5px 0;" id="edit-tags-${id}" value="${currentTags.join(
+          ", "
+        )}" placeholder="Tags (comma separated)...">
+          <textarea class="edit-textarea" style="width: 100%; min-height: 100px; margin: 10px 0;" id="edit-content-${id}">${currentText}</textarea>
           <div>
             <button class="save-btn" onclick="saveQuickResponse('${id}')">Save</button>
             <button class="cancel-btn" onclick="cancelQuickEdit('${id}')">Cancel</button>
@@ -2988,13 +3003,33 @@ Great! Could you please confirm your email so I can send over a calendar invite 
       }
 
       function saveQuickResponse(id) {
-        const textarea = document.getElementById("edit-" + id);
+        const titleInput = document.getElementById("edit-title-" + id);
+        const tagsInput = document.getElementById("edit-tags-" + id);
+        const contentTextarea = document.getElementById("edit-content-" + id);
         const responseDiv = document.getElementById(id);
         const editInterface = document.getElementById("edit-interface-" + id);
 
-        if (textarea && responseDiv) {
+        if (titleInput && tagsInput && contentTextarea && responseDiv) {
           // Save the new content
-          const newContent = textarea.value;
+          const newTitle = titleInput.value.trim();
+          const newTags = tagsInput.value
+            .split(",")
+            .map((t) => t.trim())
+            .filter((t) => t);
+          const newContent = contentTextarea.value;
+
+          // Update the trigger button text
+          const triggerButton = document.querySelector(
+            `button[onclick="toggle('${id}')"]`
+          );
+          if (triggerButton && newTitle) {
+            triggerButton.textContent = newTitle;
+          }
+
+          // Update tags in staticResponseTags
+          if (newTags.length > 0) {
+            staticResponseTags[id] = newTags;
+          }
 
           // Get the buttons HTML to preserve them
           const buttonsHtml = responseDiv.querySelector(
@@ -3007,10 +3042,15 @@ Great! Could you please confirm your email so I can send over a calendar invite 
 
           // Save to localStorage
           localStorage.setItem("quick_" + id, newContent);
+          localStorage.setItem("quick_title_" + id, newTitle);
+          localStorage.setItem("quick_tags_" + id, JSON.stringify(newTags));
 
           // Show original div and remove edit interface
           responseDiv.style.display = "block";
           editInterface.remove();
+
+          // Re-render to update filters and tags
+          renderObjections();
         }
       }
 
@@ -3018,8 +3058,10 @@ Great! Could you please confirm your email so I can send over a calendar invite 
         const responseDiv = document.getElementById(id);
         const editInterface = document.getElementById("edit-interface-" + id);
 
-        responseDiv.style.display = "block";
-        editInterface.remove();
+        if (responseDiv && editInterface) {
+          responseDiv.style.display = "block";
+          editInterface.remove();
+        }
       }
 
       // Edit static response
@@ -3315,15 +3357,40 @@ Great! Could you please confirm your email so I can send over a calendar invite 
         ];
 
         quickResponseIds.forEach((id) => {
-          const saved = localStorage.getItem("quick_" + id);
-          if (saved) {
+          // Load saved content
+          const savedContent = localStorage.getItem("quick_" + id);
+          if (savedContent) {
             const responseDiv = document.getElementById(id);
             if (responseDiv) {
               const buttonsHtml =
                 responseDiv.querySelector('div[style*="margin-top: 10px"]')
                   ?.outerHTML || "";
               responseDiv.innerHTML =
-                saved.replace(/\n/g, "<br>") + buttonsHtml;
+                savedContent.replace(/\n/g, "<br>") + buttonsHtml;
+            }
+          }
+
+          // Load saved title
+          const savedTitle = localStorage.getItem("quick_title_" + id);
+          if (savedTitle) {
+            const triggerButton = document.querySelector(
+              `button[onclick="toggle('${id}')"]`
+            );
+            if (triggerButton) {
+              triggerButton.textContent = savedTitle;
+            }
+          }
+
+          // Load saved tags
+          const savedTags = localStorage.getItem("quick_tags_" + id);
+          if (savedTags) {
+            try {
+              const parsedTags = JSON.parse(savedTags);
+              if (Array.isArray(parsedTags)) {
+                staticResponseTags[id] = parsedTags;
+              }
+            } catch (e) {
+              console.warn(`Failed to parse saved tags for ${id}:`, e);
             }
           }
         });
