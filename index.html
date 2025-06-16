@@ -14,8 +14,12 @@
         --primary-hover: #0056b3;
         --success-color: #28a745;
         --danger-color: #dc3545;
-        --background-color: #f8f9fa;
-        --card-background: #ffffff;
+        --warning-color: #ffc107;
+        --background-color: #1a1a1a;
+        --card-background: #2d2d2d;
+        --text-color: #ffffff;
+        --text-secondary: #b0b0b0;
+        --border-color: #404040;
       }
 
       * {
@@ -27,13 +31,52 @@
       body {
         font-family: "Inter", sans-serif;
         background: var(--background-color);
+        color: var(--text-color);
         margin: 0;
         padding: 20px;
         line-height: 1.6;
       }
 
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: var(--card-background);
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        height: 40px;
+        cursor: pointer;
+      }
+
+      .search-container {
+        width: 300px;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        background: var(--background-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
+
+      .search-input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+      }
+
       .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: auto;
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -44,249 +87,25 @@
         background: var(--card-background);
         padding: 30px;
         border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       }
 
       .sidebar {
         background: var(--card-background);
         padding: 20px;
         border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         height: fit-content;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        position: sticky;
+        top: 20px;
       }
 
-      .section {
-        margin-bottom: 25px;
-        padding: 15px;
+      .call-script {
+        background: var(--card-background);
+        padding: 20px;
         border-radius: 8px;
-        background: #f8f9fa;
-        transition: all 0.3s ease;
-      }
-
-      .section:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-
-      .question {
-        font-weight: 600;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #2c3e50;
-      }
-
-      .button {
-        padding: 10px 15px;
-        margin: 5px 10px 5px 0;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-      }
-
-      .button:hover {
-        background-color: var(--primary-hover);
-        transform: translateY(-1px);
-      }
-
-      .response {
-        display: none;
-        margin-top: 10px;
-        background: #eef2f5;
-        padding: 15px;
-        border-left: 4px solid var(--primary-color);
-        border-radius: 6px;
-        animation: fadeIn 0.3s ease;
-      }
-
-      .response.active {
-        display: block;
-      }
-
-      .notepad {
-        margin-top: 20px;
-      }
-
-      .notepad textarea {
-        width: 100%;
-        height: 200px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        resize: vertical;
-        font-family: inherit;
-        margin-bottom: 10px;
-      }
-
-      .interest-tracker {
-        margin-top: 20px;
-      }
-
-      .interest-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-      }
-
-      .interest-btn {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .interested {
-        background-color: var(--success-color);
-        color: white;
-      }
-
-      .not-interested {
-        background-color: var(--danger-color);
-        color: white;
-      }
-
-      .stats {
-        margin-top: 20px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 6px;
-      }
-
-      .stats h3 {
-        margin-bottom: 10px;
-        color: #2c3e50;
-      }
-
-      .stats p {
-        margin: 5px 0;
-        color: #666;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .copy-btn {
-        background: #6c757d;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-left: 10px;
-        font-size: 12px;
-      }
-
-      .copy-btn:hover {
-        background: #5a6268;
-      }
-
-      .status-indicator {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        margin-right: 5px;
-      }
-
-      .status-active {
-        background-color: var(--success-color);
-      }
-
-      .status-inactive {
-        background-color: var(--danger-color);
-      }
-
-      .co-pilots-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-      }
-
-      .co-pilot-card {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px solid #dee2e6;
-      }
-
-      .co-pilot-card h4 {
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-      }
-
-      .active-responses {
-        background: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .active-response-item {
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        background: #f8f9fa;
-        border-radius: 4px;
-        border-left: 4px solid #007bff;
-      }
-
-      .quick-access {
-        background: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .quick-access h3 {
-        color: #2c3e50;
-        margin-bottom: 1rem;
-      }
-
-      .quick-access-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .flow-indicator {
-        position: relative;
-        margin: 20px 0;
-        padding: 10px;
-        border-left: 3px solid var(--success-color);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .flow-indicator:hover {
-        background: rgba(40, 167, 69, 0.1);
-        transform: translateX(5px);
-      }
-
-      .flow-indicator.alternative {
-        border-left-color: #ffc107;
-      }
-
-      .flow-indicator.alternative:hover {
-        background: rgba(255, 193, 7, 0.1);
+        margin-bottom: 20px;
+        border-left: 4px solid var(--success-color);
       }
 
       .co-pilots-overview {
@@ -294,12 +113,14 @@
         color: white;
         padding: 2rem;
         border-radius: 12px;
-        margin: 2rem 0;
+        margin-bottom: 2rem;
       }
 
-      .co-pilots-overview h2 {
-        color: white;
-        margin-bottom: 1.5rem;
+      .co-pilots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
       }
 
       .co-pilot-card {
@@ -317,27 +138,343 @@
 
       .co-pilot-card p {
         color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
       }
 
-      .quick-access-answer {
-        margin-top: 15px;
-        background: #f8f9fa;
-        padding: 15px;
-        border-left: 4px solid var(--primary-color);
+      .learn-more-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 10px 20px;
         border-radius: 6px;
-        font-size: 15px;
-        color: #222;
-        min-height: 40px;
-        animation: fadeIn 0.3s ease;
+        cursor: pointer;
+        margin-top: 15px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .learn-more-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .filters {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: var(--card-background);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+      }
+
+      .filter-tags {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .filter-tag {
+        background: var(--border-color);
+        color: var(--text-color);
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .filter-tag.active {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .objection-card {
+        background: var(--card-background);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
+      }
+
+      .objection-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .objection-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .objection-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-color);
+        flex: 1;
+      }
+
+      .objection-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .edit-btn,
+      .save-btn,
+      .cancel-btn {
+        background: #f0f0f0;
+        color: #333;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.2s ease;
+      }
+
+      .save-btn {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .cancel-btn {
+        background: var(--danger-color);
+        color: white;
+      }
+
+      .edit-btn:hover {
+        background: #e0e0e0;
+      }
+
+      .save-btn:hover {
+        background: var(--primary-hover);
+      }
+
+      .tags {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        background: var(--primary-color);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        cursor: pointer;
+      }
+
+      .tag.active {
+        background: var(--success-color);
+      }
+
+      .objection-content {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+
+      .edit-textarea,
+      .edit-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin: 10px 0;
+        font-family: inherit;
+        background: var(--background-color);
+        color: var(--text-color);
+      }
+
+      .edit-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .button {
+        padding: 10px 15px;
+        margin: 5px 0;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        width: 100%;
+        text-align: left;
+      }
+
+      .button:hover {
+        background-color: var(--primary-hover);
+      }
+
+      .notepad textarea {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        resize: vertical;
+        font-family: inherit;
+        margin: 10px 0;
+        background: var(--background-color);
+        color: var(--text-color);
+      }
+
+      .copy-btn {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .copy-btn:hover {
+        background: #5a6268;
+      }
+
+      .footer {
+        margin-top: 40px;
+        padding: 30px 0;
+        background: var(--card-background);
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .add-objection-form {
+        background: var(--background-color);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: none;
+      }
+
+      .tag-input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        border-radius: 4px;
       }
     </style>
   </head>
   <body>
+    <div class="header">
+      <img
+        src="assets/images/Hyperbots Logo.jpeg"
+        alt="Hyperbots Logo"
+        class="logo"
+        onclick="location.reload()"
+      />
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search objections..."
+          id="searchInput"
+          onkeyup="searchObjections()"
+        />
+      </div>
+    </div>
+
     <div class="container">
       <div class="main-content">
-        <h1>📞 Hyperbots Cold Call Navigator</h1>
+        <!-- Call Script Section -->
+        <div class="call-script">
+          <div class="objection-header">
+            <h2>📞 Main Call Script</h2>
+            <div class="objection-controls">
+              <button class="edit-btn" onclick="editCallScript()">Edit</button>
+              <button class="copy-btn" onclick="copyCallScript()">Copy</button>
+            </div>
+          </div>
+          <div class="objection-content" id="callScriptContent">
+            Hi am I connected to [Name]? [If not- May I know who am I speaking
+            with? ] Hi [Name]! I am Ishaan calling from Hyperbots. I had one
+            quick question, if you don't mind me asking. Do you guys use AI or
+            any automation tools in your finance and accounting workflows? [The
+            answer is yes] I understand, and we're not looking to replace what's
+            working. Many of our clients had systems too—but by plugging
+            Hyperbots into their ERP, they cut manual effort by 80% and reduced
+            processing time to under a minute. Worth a quick chat? [The answer
+            is no] Alright! That's exactly where we can help. Our platform uses
+            AI co-pilots to pull invoices from emails, portals, or profiles and
+            automates the entire process—from capture to payment, including GL
+            coding, accruals, procurement, tax, and vendor onboarding. Does that
+            sound interesting? [Before I let you go, would you be open to a
+            quick 15-minute call? I'd love to give you a short demo of our
+            platform.] [They are not interested] Totally fair. Before I let you
+            go, would you be open to a quick 15-minute call? I'd love to give
+            you a short demo of our platform. [Just putting it out there—our
+            platform cuts invoice cycle time from 11 days to under a minute,
+            with 80%+ straight-through processing. The rest are flagged clearly.
+            Worth a look in the future!] [They are interested] Great! Could you
+            please confirm your email so I can send over a calendar invite for a
+            quick virtual call? You'll be able to see everything in action, and
+            of course, you can choose a time that works best for you.
+          </div>
+          <div class="objection-edit" id="editCallScript" style="display: none">
+            <textarea class="edit-textarea" id="callScriptTextarea">
+Hi am I connected to [Name]? [If not- May I know who am I speaking with? ]
+Hi [Name]! I am Ishaan calling from Hyperbots.
+I had one quick question, if you don't mind me asking. Do you guys use AI or any automation tools in your finance and accounting workflows?
 
-        <!-- Co-Pilots Overview (Moved to top) -->
+[The answer is yes]
+I understand, and we're not looking to replace what's working. Many of our clients had systems too—but by plugging Hyperbots into their ERP, they cut manual effort by 80% and reduced processing time to under a minute. Worth a quick chat?
+
+[The answer is no]
+Alright! That's exactly where we can help. Our platform uses AI co-pilots to pull invoices from emails, portals, or profiles and automates the entire process—from capture to payment, including GL coding, accruals, procurement, tax, and vendor onboarding. Does that sound interesting?
+
+[Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform.]
+
+[They are not interested]
+Totally fair. Before I let you go, would you be open to a quick 15-minute call? I'd love to give you a short demo of our platform. 
+
+[Just putting it out there—our platform cuts invoice cycle time from 11 days to under a minute, with 80%+ straight-through processing. The rest are flagged clearly. Worth a look in the future!]
+
+[They are interested]
+Great! Could you please confirm your email so I can send over a calendar invite for a quick virtual call? You'll be able to see everything in action, and of course, you can choose a time that works best for you.</textarea
+            >
+            <button class="save-btn" onclick="saveCallScript()">Save</button>
+            <button class="cancel-btn" onclick="cancelCallScriptEdit()">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <!-- Co-Pilots Overview -->
         <div class="co-pilots-overview">
           <h2>Hyperbots Co-Pilots Overview</h2>
           <div class="co-pilots-grid">
@@ -345,38 +482,139 @@
               <h4>Invoice Co-Pilot</h4>
               <p>
                 Automates invoice processing with 99.9% accuracy, reducing
-                processing time by 90%
+                processing time by 90%. Handles handwritten, scanned, and
+                digital invoices with intelligent GL coding.
               </p>
+              <a
+                href="https://www.hyperbots.com/copilots/invoice-processing"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
             </div>
             <div class="co-pilot-card">
               <h4>Payment Co-Pilot</h4>
               <p>
                 Streamlines payment workflows, ensures compliance, and optimizes
-                cash flow
+                cash flow management with automated approval processes.
               </p>
+              <a
+                href="https://www.hyperbots.com/copilots/payments"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
             </div>
             <div class="co-pilot-card">
               <h4>Procurement Co-Pilot</h4>
-              <p>Automates purchase order processing and vendor management</p>
+              <p>
+                Automates purchase order processing, vendor management, and
+                procurement workflows with intelligent matching and approvals.
+              </p>
+              <a
+                href="https://www.hyperbots.com/copilots/procurement"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
             </div>
             <div class="co-pilot-card">
-              <h4>Tax Verification Co-Pilot</h4>
+              <h4>Accruals Co-Pilot</h4>
+              <p>
+                Automates accrual calculations, journal entries, and month-end
+                closing processes with precise financial accuracy.
+              </p>
+              <a
+                href="https://www.hyperbots.com/copilots/accruals"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
+            </div>
+            <div class="co-pilot-card">
+              <h4>Vendor Management Co-Pilot</h4>
+              <p>
+                Streamlines vendor onboarding, compliance tracking, and
+                relationship management with automated workflows.
+              </p>
+              <a
+                href="https://www.hyperbots.com/copilots/vendor-management"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
+            </div>
+            <div class="co-pilot-card">
+              <h4>Sales Tax Verification Co-Pilot</h4>
               <p>
                 Ensures tax compliance and automates tax document processing
+                with real-time verification and reporting.
               </p>
+              <a
+                href="https://www.hyperbots.com/copilots/sales-tax-verification"
+                class="learn-more-btn"
+                target="_blank"
+                >Learn More</a
+              >
             </div>
           </div>
         </div>
 
-        <!-- Start the conversation with standard buttons -->
-        <div class="section">
-          <div class="question">Start the conversation</div>
+        <!-- Static HTML Sections -->
+        <div
+          class="section"
+          style="
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            class="question"
+            style="
+              font-weight: 600;
+              font-size: 18px;
+              margin-bottom: 15px;
+              color: var(--text-color);
+            "
+          >
+            Start the conversation
+          </div>
           <button class="button" onclick="toggle('greeting')">
             Greet Prospect
           </button>
-          <div id="greeting" class="response">
-            Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan
-            calling from Hyperbots.
+          <div
+            id="greeting"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
+            <div id="greeting-content">
+              Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan
+              calling from Hyperbots.
+            </div>
+            <div id="greeting-edit" style="display: none">
+              <textarea class="edit-textarea" id="greeting-textarea">
+Hi, am I speaking to [recipient's name]? Hi [name], I am Ishaan calling from Hyperbots.</textarea
+              >
+              <button class="save-btn" onclick="saveStaticResponse('greeting')">
+                Save
+              </button>
+              <button class="cancel-btn" onclick="cancelStaticEdit('greeting')">
+                Cancel
+              </button>
+            </div>
+            <button class="edit-btn" onclick="editStaticResponse('greeting')">
+              Edit
+            </button>
             <button class="copy-btn" onclick="copyToClipboard('greeting')">
               Copy
             </button>
@@ -385,7 +623,19 @@
           <button class="button" onclick="toggle('whatis')">
             They might ask: What is Hyperbots?
           </button>
-          <div id="whatis" class="response">
+          <div
+            id="whatis"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
             automates invoice processing, payment workflows, procurement, and
             tax verification with high accuracy and speed.
@@ -397,7 +647,19 @@
           <button class="button" onclick="toggle('salescallconv')">
             They might ask: Is this a sales call?
           </button>
-          <div id="salescallconv" class="response">
+          <div
+            id="salescallconv"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             I apologise if I gave you this impression. At this point, we are not
             really sure if we are a right fit for each other. We are an Agentic
             AI for AP and we are trying to connect with professionals like
@@ -412,7 +674,19 @@
           <button class="button" onclick="toggle('howgetnumber')">
             They might ask: How did you get my number?
           </button>
-          <div id="howgetnumber" class="response">
+          <div
+            id="howgetnumber"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Oh, we have a database team that just updates mobile numbers on our
             list. If you don't want me to call on this number, I'll do that but
             before I hang up can you give me 30 seconds so that I can share the
@@ -424,13 +698,43 @@
           </div>
         </div>
 
-        <!-- New Privacy Concerns Section -->
-        <div class="section">
-          <div class="question">Privacy & Security Concerns</div>
+        <!-- Privacy & Security Concerns Section -->
+        <div
+          class="section"
+          style="
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            class="question"
+            style="
+              font-weight: 600;
+              font-size: 18px;
+              margin-bottom: 15px;
+              color: var(--text-color);
+            "
+          >
+            Privacy & Security Concerns
+          </div>
           <button class="button" onclick="toggle('privacy1')">
             They ask: Why should I share company data?
           </button>
-          <div id="privacy1" class="response">
+          <div
+            id="privacy1"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             "I completely understand your concern. We're SOC 2 Type II certified
             and GDPR compliant. We never store your actual data - our AI
             processes it in real-time and returns only the results. Would you
@@ -443,7 +747,19 @@
           <button class="button" onclick="toggle('privacy2')">
             They ask: How did you get my number?
           </button>
-          <div id="privacy2" class="response">
+          <div
+            id="privacy2"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             "I found your contact through [source - LinkedIn/Company Website].
             I'm reaching out because you're the [position] at [company], and I
             thought you might be interested in how we're helping finance teams
@@ -456,7 +772,19 @@
           <button class="button" onclick="toggle('privacy3')">
             They threaten to report
           </button>
-          <div id="privacy3" class="response">
+          <div
+            id="privacy3"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             "I apologize if this call is unwelcome. I'm calling because you're
             listed as the [position] at [company]. I'll remove your number from
             our database. Would you prefer I send information via email
@@ -467,12 +795,43 @@
           </div>
         </div>
 
-        <div class="section">
-          <div class="question">Main Qualification</div>
+        <!-- Main Qualification Section -->
+        <div
+          class="section"
+          style="
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            class="question"
+            style="
+              font-weight: 600;
+              font-size: 18px;
+              margin-bottom: 15px;
+              color: var(--text-color);
+            "
+          >
+            Main Qualification
+          </div>
           <button class="button" onclick="toggle('useai')">
             Ask: Do you use AI in finance?
           </button>
-          <div id="useai" class="response">
+          <div
+            id="useai"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Do you currently use AI or automation tools like OCR, RPA, or
             embedded ERP features in your finance workflows?
             <button class="copy-btn" onclick="copyToClipboard('useai')">
@@ -481,10 +840,41 @@
           </div>
         </div>
 
-        <div class="section">
-          <div class="question">Their answer: YES</div>
+        <!-- Their answer: YES Section -->
+        <div
+          class="section"
+          style="
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            class="question"
+            style="
+              font-weight: 600;
+              font-size: 18px;
+              margin-bottom: 15px;
+              color: var(--text-color);
+            "
+          >
+            Their answer: YES
+          </div>
           <button class="button" onclick="toggle('aiyes')">Handle YES</button>
-          <div id="aiyes" class="response">
+          <div
+            id="aiyes"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Great! Is it ERP-embedded or standalone? Most OCR/RPA tools rely on
             fixed formats. Hyperbots doesn't—we handle even handwritten or
             scanned invoices, classify them automatically, and do GL coding with
@@ -497,7 +887,19 @@
           <button class="button" onclick="toggle('bookyes')">
             They're Interested?
           </button>
-          <div id="bookyes" class="response">
+          <div
+            id="bookyes"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Awesome—can I confirm your email so I can send over a calendar
             invite? You can choose a time that works for you.
             <button class="copy-btn" onclick="copyToClipboard('bookyes')">
@@ -508,7 +910,19 @@
           <button class="button" onclick="toggle('denyafteryes')">
             They Say No After Yes
           </button>
-          <div id="denyafteryes" class="response">
+          <div
+            id="denyafteryes"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             No worries. Thanks for the time—if ever you're curious to cut AP
             time from 11 days to under 1 minute with 80% straight-through
             processing, feel free to reach back!
@@ -518,10 +932,41 @@
           </div>
         </div>
 
-        <div class="section">
-          <div class="question">Their answer: NO</div>
+        <!-- Their answer: NO Section -->
+        <div
+          class="section"
+          style="
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <div
+            class="question"
+            style="
+              font-weight: 600;
+              font-size: 18px;
+              margin-bottom: 15px;
+              color: var(--text-color);
+            "
+          >
+            Their answer: NO
+          </div>
           <button class="button" onclick="toggle('aino')">Handle NO</button>
-          <div id="aino" class="response">
+          <div
+            id="aino"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             Good to know. Our platform pulls invoices from mail, portals or
             profiles, automates the full process from capture to
             payment—including GL coding, accruals, procurement, tax, and vendor
@@ -534,7 +979,19 @@
           <button class="button" onclick="toggle('intrestedno')">
             They're Interested?
           </button>
-          <div id="intrestedno" class="response">
+          <div
+            id="intrestedno"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             That's great—can I confirm your email to set a 15-minute virtual
             walkthrough?
             <button class="copy-btn" onclick="copyToClipboard('intrestedno')">
@@ -545,7 +1002,19 @@
           <button class="button" onclick="toggle('nothanks')">
             They're Not Interested
           </button>
-          <div id="nothanks" class="response">
+          <div
+            id="nothanks"
+            class="response"
+            style="
+              display: none;
+              margin-top: 10px;
+              background: var(--background-color);
+              padding: 15px;
+              border-left: 4px solid var(--primary-color);
+              border-radius: 6px;
+              animation: fadeIn 0.3s ease;
+            "
+          >
             That's completely fair. Just to share, our platform cuts invoice
             cycle time from 11 days to under a minute. With 80%+
             straight-through rate, and the rest flagged with clarity—you might
@@ -556,34 +1025,41 @@
           </div>
         </div>
 
-        <!-- Google Calendar Integration -->
-        <div class="section">
-          <div class="question">Schedule a Meeting</div>
-          <p>Let the prospect pick a time:</p>
-          <iframe
-            src="https://calendar.google.com/calendar/embed?src=irwinhyperbots%40gmail.com&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK"
-            style="border: 0"
-            width="100%"
-            height="500"
-            frameborder="0"
-            scrolling="no"
-          >
-          </iframe>
+        <!-- Filters -->
+        <div class="filters">
+          <h3>Filter by Tags</h3>
+          <div class="filter-tags" id="filterTags">
+            <div class="filter-tag active" onclick="filterByTag('all')">
+              All
+            </div>
+          </div>
+        </div>
+
+        <!-- Objections Container -->
+        <div id="objections-container">
+          <!-- Objections will be dynamically loaded here -->
         </div>
       </div>
 
-      <div
-        class="sidebar"
-        style="position: sticky; top: 20px; align-self: start"
-      >
-        <!-- Quick Access Objections -->
+      <div class="sidebar">
         <div class="quick-access">
           <h3>Quick Access - Objections</h3>
           <div class="quick-access-buttons">
             <button class="button" onclick="toggle('systeminplaceall_q')">
               I have a system in place, So not required / We are all set.
             </button>
-            <div id="systeminplaceall_q" class="response">
+            <div
+              id="systeminplaceall_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               <b>Option 1 – Value-focused</b><br />
               Totally understand—most teams have systems in place. What we often
               find is that even mature setups still rely on manual steps or
@@ -614,7 +1090,18 @@
             <button class="button" onclick="toggle('salescallconv_q')">
               Is this a sales call?
             </button>
-            <div id="salescallconv_q" class="response">
+            <div
+              id="salescallconv_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               I apologise if I gave you this impression. At this point, we are
               not really sure if we are a right fit for each other. We are an
               Agentic AI for AP and we are trying to connect with professionals
@@ -631,7 +1118,18 @@
             <button class="button" onclick="toggle('erpchange_q')">
               Changing ERP
             </button>
-            <div id="erpchange_q" class="response">
+            <div
+              id="erpchange_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               I see. I understand that must be a time-consuming and challenging
               process. So, what we can do for now is show you how our AI
               co-pilots are transforming the accounts payable game. Once your
@@ -644,7 +1142,18 @@
             <button class="button" onclick="toggle('cost_q')">
               How much does it cost?
             </button>
-            <div id="cost_q" class="response">
+            <div
+              id="cost_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               That's a good question. That depends on the invoice volume of your
               company. We can customise our pricing as per your company's needs
               and requirements. If you want to learn more about it, I can patch
@@ -657,7 +1166,18 @@
             <button class="button" onclick="toggle('companyinfo_q')">
               Why share company info?
             </button>
-            <div id="companyinfo_q" class="response">
+            <div
+              id="companyinfo_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               That's a valid question. I apologise if I sounded invasive. So,
               I'm not trying to access any confidential information about your
               company. It's just that we were trying to understand how companies
@@ -673,7 +1193,18 @@
             <button class="button" onclick="toggle('nobudget_q')">
               No budget allocated
             </button>
-            <div id="nobudget_q" class="response">
+            <div
+              id="nobudget_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               I can understand. I can definitely reach back to you next year.
               So, before we do that if you could just hop on a short 15-20 mins
               call sometime this week, you can see what we do and suggest any
@@ -688,7 +1219,18 @@
             <button class="button" onclick="toggle('noauthority_q')">
               Not the right person
             </button>
-            <div id="noauthority_q" class="response">
+            <div
+              id="noauthority_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               That's not an issue. We are not looking for any decision maker
               right now. It's just that you are looking after AP on a daily
               basis and you would be aware about the problems and challenges
@@ -704,7 +1246,18 @@
             <button class="button" onclick="toggle('industry_q')">
               Worked with industry?
             </button>
-            <div id="industry_q" class="response">
+            <div
+              id="industry_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               We are currently researching &lt;industry&gt; and we have
               partnered with &lt;partner&gt; who have helped us to understand
               better. So, we do have a fair idea about this industry. We would
@@ -717,7 +1270,18 @@
             <button class="button" onclick="toggle('corporate_q')">
               Corporate office decides
             </button>
-            <div id="corporate_q" class="response">
+            <div
+              id="corporate_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               That's not an issue. We are not looking for any decision maker
               right now. It's just that you are looking after AP on a daily
               basis and you would be aware about the problems and challenges
@@ -730,7 +1294,18 @@
             <button class="button" onclick="toggle('internal_q')">
               Handle internally
             </button>
-            <div id="internal_q" class="response">
+            <div
+              id="internal_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               That's wonderful! So, we have just launched our solution. Don't
               want to put any solution down. What we would appreciate is if you
               could give us 15-20 mins, we can show what we can offer and if it
@@ -743,7 +1318,18 @@
             <button class="button" onclick="toggle('personalnumber_q')">
               Personal mobile number
             </button>
-            <div id="personalnumber_q" class="response">
+            <div
+              id="personalnumber_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Oh, we have a database team that just updates mobile numbers on
               our list. If you don't want me to call on this number, I'll do
               that but before I hang up can you give me 30 seconds so that I can
@@ -759,7 +1345,18 @@
             <button class="button" onclick="toggle('whatis_q')">
               What is Hyperbots?
             </button>
-            <div id="whatis_q" class="response">
+            <div
+              id="whatis_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Hyperbots is an Agentic AI platform for Accounts Payable (AP) that
               automates invoice processing, payment workflows, procurement, and
               tax verification with high accuracy and speed.
@@ -770,7 +1367,18 @@
             <button class="button" onclick="toggle('howgetnumber_q')">
               How did you get my number?
             </button>
-            <div id="howgetnumber_q" class="response">
+            <div
+              id="howgetnumber_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Oh, we have a database team that just updates mobile numbers on
               our list. If you don't want me to call on this number, I'll do
               that but before I hang up can you give me 30 seconds so that I can
@@ -786,7 +1394,18 @@
             <button class="button" onclick="toggle('busy_q')">
               They say: I'm busy
             </button>
-            <div id="busy_q" class="response">
+            <div
+              id="busy_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Totally understand! Can I send over a 60-second overview by email
               and you can check when it suits you?<button
                 class="copy-btn"
@@ -798,7 +1417,18 @@
             <button class="button" onclick="toggle('alreadyusing_q')">
               They say: We already have a tool
             </button>
-            <div id="alreadyusing_q" class="response">
+            <div
+              id="alreadyusing_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Makes sense—most teams do. Just out of curiosity, is it ERP-native
               or standalone?<button
                 class="copy-btn"
@@ -810,7 +1440,18 @@
             <button class="button" onclick="toggle('notrighttime_q')">
               They say: Not the right time
             </button>
-            <div id="notrighttime_q" class="response">
+            <div
+              id="notrighttime_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               No problem—happy to circle back next quarter. May I just note the
               best person/time?<button
                 class="copy-btn"
@@ -822,7 +1463,18 @@
             <button class="button" onclick="toggle('sendemail_q')">
               They say: Send me an email
             </button>
-            <div id="sendemail_q" class="response">
+            <div
+              id="sendemail_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Sure thing—can I confirm your email address real quick? I'll keep
               it short and relevant.<button
                 class="copy-btn"
@@ -834,7 +1486,18 @@
             <button class="button" onclick="toggle('notinterested_q')">
               They say: Not Interested
             </button>
-            <div id="notinterested_q" class="response">
+            <div
+              id="notinterested_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Understood. Just sharing: we cut invoice time from 11 days to
               under a minute. Open to a future chat if priorities change!<button
                 class="copy-btn"
@@ -846,7 +1509,18 @@
             <button class="button" onclick="toggle('questionpainpoint_q')">
               Ask: Any pain point in AP?
             </button>
-            <div id="questionpainpoint_q" class="response">
+            <div
+              id="questionpainpoint_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Is there a current pain point you're trying to fix in AP—volume,
               errors, vendor onboarding?<button
                 class="copy-btn"
@@ -858,7 +1532,18 @@
             <button class="button" onclick="toggle('questiontools_q')">
               Ask: Which tool do you use?
             </button>
-            <div id="questiontools_q" class="response">
+            <div
+              id="questiontools_q"
+              class="response"
+              style="
+                display: none;
+                margin-top: 10px;
+                background: var(--background-color);
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 6px;
+              "
+            >
               Are you using tools like Tipalti, Coupa, or NetSuite's native
               features?<button
                 class="copy-btn"
@@ -876,70 +1561,811 @@
             id="callNotes"
             placeholder="Take notes during the call..."
           ></textarea>
-          <button class="button" onclick="saveNotes()">Save Notes</button>
           <button class="button" onclick="exportNotes()">Export Notes</button>
         </div>
       </div>
     </div>
 
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://www.hyperbots.com/" target="_blank">Visit Us</a>
+        <a href="https://www.hyperbots.com/about-us" target="_blank"
+          >About Us</a
+        >
+        <a href="https://www.hyperbots.com/privacy-policy" target="_blank"
+          >Privacy Policy</a
+        >
+        <a href="https://www.hyperbots.com/terms-and-conditions" target="_blank"
+          >Terms & Conditions</a
+        >
+      </div>
+      <p style="color: var(--text-secondary); margin-top: 15px">
+        © 2025 Hyperbots. All rights reserved.
+      </p>
+    </div>
+
     <script>
-      // Toggle response visibility in main content only (not sidebar)
-      function toggle(id) {
-        // Hide all other responses in the same parent
-        const parent = document.getElementById(id).parentElement;
-        const allSections = parent.querySelectorAll(".response");
-        allSections.forEach((response) => {
-          if (response.id !== id) response.classList.remove("active");
+      // Complete objections data with all original objections
+      let objections = {
+        greeting: {
+          title: "Greet Prospect",
+          content:
+            "Hi, am I speaking to [recipient's name]? Hi [name], I am [Your Name] calling from Hyperbots.",
+          tags: ["greeting", "start"],
+        },
+        whatis: {
+          title: "What is Hyperbots?",
+          content:
+            "Hyperbots is an Agentic AI platform for Accounts Payable (AP) that automates invoice processing, payment workflows, procurement, and tax verification with high accuracy and speed.",
+          tags: ["product", "overview"],
+        },
+        salescallconv: {
+          title: "Is this a sales call?",
+          content:
+            "I apologise if I gave you this impression. At this point, we are not really sure if we are a right fit for each other. We are an Agentic AI for AP and we are trying to connect with professionals like yourself and understand how they manage AP processes and also wanted to chat about how Agentic AI is changing the finance and accounting game.",
+          tags: ["objection", "sales"],
+        },
+        howgetnumber: {
+          title: "How did you get my number?",
+          content:
+            "Oh, we have a database team that just updates mobile numbers on our list. If you don't want me to call on this number, I'll do that but before I hang up can you give me 30 seconds so that I can share the reason for this call. If it doesn't make sense, I'll remove your number.",
+          tags: ["privacy", "contact"],
+        },
+        privacy1: {
+          title: "Why should I share company data?",
+          content:
+            "I completely understand your concern. We're SOC 2 Type II certified and GDPR compliant. We never store your actual data - our AI processes it in real-time and returns only the results. Would you like to see our security certifications?",
+          tags: ["privacy", "security", "data"],
+        },
+        useai: {
+          title: "Do you use AI in finance?",
+          content:
+            "Do you currently use AI or automation tools like OCR, RPA, or embedded ERP features in your finance workflows?",
+          tags: ["qualification", "ai", "question"],
+        },
+        aiyes: {
+          title: "They use AI - Handle YES",
+          content:
+            "Great! Is it ERP-embedded or standalone? Most OCR/RPA tools rely on fixed formats. Hyperbots doesn't—we handle even handwritten or scanned invoices, classify them automatically, and do GL coding with high accuracy.",
+          tags: ["qualification", "competitive", "ai"],
+        },
+        aino: {
+          title: "They don't use AI - Handle NO",
+          content:
+            "Good to know. Our platform pulls invoices from mail, portals or profiles, automates the full process from capture to payment—including GL coding, accruals, procurement, tax, and vendor onboarding using multiple AI co-pilots.",
+          tags: ["qualification", "education", "benefits"],
+        },
+        systeminplaceall: {
+          title: "I have a system in place / We are all set",
+          content:
+            "Option 1 – Value-focused\nTotally understand—most teams have systems in place. What we often find is that even mature setups still rely on manual steps or spreadsheets for exceptions. Would it be worth a quick look to see if we can help your team go from partial to 80%+ straight-through processing?\n\nOption 2 – Competitive angle\nThat makes sense, and it's great that you're set up. Just curious—how much of your invoice or accrual process is truly touchless today? We often work alongside existing systems to close that last mile with AI.",
+          tags: ["objection", "competitive", "value"],
+        },
+        erpchange: {
+          title: "We're changing ERP",
+          content:
+            "I see. I understand that must be a time-consuming and challenging process. So, what we can do for now is show you how our AI co-pilots are transforming the accounts payable game. Once your ERP implementation is complete, we can always reconnect and explore the next steps. Does that sound fair?",
+          tags: ["objection", "timing", "erp"],
+        },
+        cost: {
+          title: "How much does it cost?",
+          content:
+            "That's a good question. That depends on the invoice volume of your company. We can customise our pricing as per your company's needs and requirements. If you want to learn more about it, I can patch a call with our solution experts who'll be able to explain things better.",
+          tags: ["pricing", "cost", "qualification"],
+        },
+        nobudget: {
+          title: "No budget allocated",
+          content:
+            "I can understand. I can definitely reach back to you next year. So, before we do that if you could just hop on a short 15-20 mins call sometime this week, you can see what we do and suggest any modification as per your company. In that way, we'll be able to give a tailored demonstration to you and your company when we next connect and maybe you can prepare a business case to your superiors when the budget is allocated.",
+          tags: ["objection", "budget", "timing"],
+        },
+        noauthority: {
+          title: "Not the right person / Not decision maker",
+          content:
+            "That's not an issue. We are not looking for any decision maker right now. It's just that you are looking after AP on a daily basis and you would be aware about the problems and challenges better. That's why i wanted to have a conversation with you to know about AP processes in your company better",
+          tags: ["objection", "authority", "qualification"],
+        },
+        busy: {
+          title: "I'm busy right now",
+          content:
+            "Totally understand! Can I send over a 60-second overview by email and you can check when it suits you?",
+          tags: ["objection", "timing", "busy"],
+        },
+        alreadyusing: {
+          title: "We already have a tool",
+          content:
+            "Makes sense—most teams do. Just out of curiosity, is it ERP-native or standalone?",
+          tags: ["objection", "competitive", "tools"],
+        },
+        notinterested: {
+          title: "Not Interested",
+          content:
+            "Understood. Just sharing: we cut invoice time from 11 days to under a minute. Open to a future chat if priorities change!",
+          tags: ["objection", "closing", "value"],
+        },
+        sendemail: {
+          title: "Send me an email",
+          content:
+            "Sure thing—can I confirm your email address real quick? I'll keep it short and relevant.",
+          tags: ["follow-up", "email", "contact"],
+        },
+        industry: {
+          title: "Have you worked with our industry?",
+          content:
+            "We are currently researching [industry] and we have partnered with [partner] who have helped us to understand better. So, we do have a fair idea about this industry. We would always love to get your views on our solution which can help us further.",
+          tags: ["qualification", "industry", "experience"],
+        },
+        corporate: {
+          title: "Corporate office decides",
+          content:
+            "That's not an issue. We are not looking for any decision maker right now. It's just that you are looking after AP on a daily basis and you would be aware about the problems and challenges better. That's why i wanted to have a conversation with you to know about AP processes in your company better",
+          tags: ["objection", "authority", "corporate"],
+        },
+        internal: {
+          title: "We handle this internally",
+          content:
+            "That's wonderful! So, we have just launched our solution. Don't want to put any solution down. What we would appreciate is if you could give us 15-20 mins, we can show what we can offer and if it seems like something that can add value, great, we can move further.",
+          tags: ["objection", "internal", "value"],
+        },
+        personalnumber: {
+          title: "This is my personal number",
+          content:
+            "Oh, we have a database team that just updates mobile numbers on our list. If you don't want me to call on this number, I'll do that but before I hang up can you give me 30 seconds so that I can share the reason for this call. If it doesn't make sense, I'll remove your number.",
+          tags: ["privacy", "personal", "contact"],
+        },
+        notrighttime: {
+          title: "Not the right time",
+          content:
+            "No problem—happy to circle back next quarter. May I just note the best person/time?",
+          tags: ["objection", "timing", "follow-up"],
+        },
+        bookyes: {
+          title: "They're Interested After YES",
+          content:
+            "Awesome—can I confirm your email so I can send over a calendar invite? You can choose a time that works for you.",
+          tags: ["follow-up", "booking", "interested"],
+        },
+        denyafteryes: {
+          title: "They Say No After Yes",
+          content:
+            "No worries. Thanks for the time—if ever you're curious to cut AP time from 11 days to under 1 minute with 80% straight-through processing, feel free to reach back!",
+          tags: ["objection", "closing", "follow-up"],
+        },
+        intrestedno: {
+          title: "They're Interested After NO",
+          content:
+            "That's great—can I confirm your email to set a 15-minute virtual walkthrough?",
+          tags: ["follow-up", "booking", "interested"],
+        },
+        nothanks: {
+          title: "They're Not Interested",
+          content:
+            "That's completely fair. Just to share, our platform cuts invoice cycle time from 11 days to under a minute. With 80%+ straight-through rate, and the rest flagged with clarity—you might want to give it a shot in future!",
+          tags: ["objection", "closing", "value"],
+        },
+        companyinfo: {
+          title: "Why share company info?",
+          content:
+            "That's a valid question. I apologise if I sounded invasive. So, I'm not trying to access any confidential information about your company. It's just that we were trying to understand how companies manage their AP processes and see how our AI assistant can help optimise them.",
+          tags: ["privacy", "information", "qualification"],
+        },
+        questionpainpoint: {
+          title: "Ask: Any pain point in AP?",
+          content:
+            "Is there a current pain point you're trying to fix in AP—volume, errors, vendor onboarding?",
+          tags: ["qualification", "question", "painpoint"],
+        },
+        questiontools: {
+          title: "Ask: Which tool do you use?",
+          content:
+            "Are you using tools like Tipalti, Coupa, or NetSuite's native features?",
+          tags: ["qualification", "question", "tools"],
+        },
+        privacy2: {
+          title: "How did you get my number? (Alt)",
+          content:
+            "I found your contact through [source - LinkedIn/Company Website]. I'm reaching out because you're the [position] at [company], and I thought you might be interested in how we're helping finance teams automate their processes.",
+          tags: ["privacy", "contact", "source"],
+        },
+        privacy3: {
+          title: "They threaten to report",
+          content:
+            "I apologize if this call is unwelcome. I'm calling because you're listed as the [position] at [company]. I'll remove your number from our database. Would you prefer I send information via email instead?",
+          tags: ["privacy", "threat", "contact"],
+        },
+        systeminplaceall_q: {
+          title: "I have a system in place, So not required / We are all set",
+          content:
+            "Option 1 – Value-focused\nTotally understand—most teams have systems in place. What we often find is that even mature setups still rely on manual steps or spreadsheets for exceptions. Would it be worth a quick look to see if we can help your team go from partial to 80%+ straight-through processing?\n\nOption 2 – Competitive angle\nThat makes sense, and it's great that you're set up. Just curious—how much of your invoice or accrual process is truly touchless today? We often work alongside existing systems to close that last mile with AI.\n\nOption 3 – Efficiency-driven\nAbsolutely, and we're not looking to replace what's working. Many of our clients had systems too—but by plugging Hyperbots into their ERP, they cut manual effort by 80% and reduced processing time to under a minute. Worth a quick chat?\n\nOption 4 – Soft close\nUnderstood! Would it be okay if I sent you a quick one-pager on how we complement existing systems with AI? That way, you can keep us in mind if things change down the road.",
+          tags: ["objection", "competitive", "value", "system"],
+        },
+        salescallconv_q: {
+          title: "Is this a sales call? (Quick Access)",
+          content:
+            "I apologise if I gave you this impression. At this point, we are not really sure if we are a right fit for each other. We are an Agentic AI for AP and we are trying to connect with professionals like yourself and understand how they manage AP processes and also wanted to chat about how Agentic AI is changing the finance and accounting game.",
+          tags: ["objection", "sales", "quick"],
+        },
+        erpchange_q: {
+          title: "Changing ERP",
+          content:
+            "I see. I understand that must be a time-consuming and challenging process. So, what we can do for now is show you how our AI co-pilots are transforming the accounts payable game. Once your ERP implementation is complete, we can always reconnect and explore the next steps. Does that sound fair?",
+          tags: ["objection", "timing", "erp", "change"],
+        },
+        cost_q: {
+          title: "How much does it cost? (Quick Access)",
+          content:
+            "That's a good question. That depends on the invoice volume of your company. We can customise our pricing as per your company's needs and requirements. If you want to learn more about it, I can patch a call with our solution experts who'll be able to explain things better.",
+          tags: ["pricing", "cost", "qualification", "quick"],
+        },
+        companyinfo_q: {
+          title: "Why share company info? (Quick Access)",
+          content:
+            "That's a valid question. I apologise if I sounded invasive. So, I'm not trying to access any confidential information about your company. It's just that we were trying to understand how companies manage their AP processes and see how our AI assistant can help optimise them.",
+          tags: ["privacy", "information", "qualification", "quick"],
+        },
+        nobudget_q: {
+          title: "No budget allocated (Quick Access)",
+          content:
+            "I can understand. I can definitely reach back to you next year. So, before we do that if you could just hop on a short 15-20 mins call sometime this week, you can see what we do and suggest any modification as per your company. In that way, we'll be able to give a tailored demonstration to you and your company when we next connect and maybe you can prepare a business case to your superiors when the budget is allocated.",
+          tags: ["objection", "budget", "timing", "quick"],
+        },
+        noauthority_q: {
+          title: "Not the right person (Quick Access)",
+          content:
+            "That's not an issue. We are not looking for any decision maker right now. It's just that you are looking after AP on a daily basis and you would be aware about the problems and challenges better. That's why i wanted to have a conversation with you to know about AP processes in your company better",
+          tags: ["objection", "authority", "qualification", "quick"],
+        },
+        industry_q: {
+          title: "Worked with industry? (Quick Access)",
+          content:
+            "We are currently researching <industry> and we have partnered with <partner> who have helped us to understand better. So, we do have a fair idea about this industry. We would always love to get your views on our solution which can help us further.",
+          tags: ["qualification", "industry", "experience", "quick"],
+        },
+        corporate_q: {
+          title: "Corporate office decides (Quick Access)",
+          content:
+            "That's not an issue. We are not looking for any decision maker right now. It's just that you are looking after AP on a daily basis and you would be aware about the problems and challenges better. That's why i wanted to have a conversation with you to know about AP processes in your company better",
+          tags: ["objection", "authority", "corporate", "quick"],
+        },
+        internal_q: {
+          title: "Handle internally (Quick Access)",
+          content:
+            "That's wonderful! So, we have just launched our solution. Don't want to put any solution down. What we would appreciate is if you could give us 15-20 mins, we can show what we can offer and if it seems like something that can add value, great, we can move further.",
+          tags: ["objection", "internal", "value", "quick"],
+        },
+        personalnumber_q: {
+          title: "Personal mobile number (Quick Access)",
+          content:
+            "Oh, we have a database team that just updates mobile numbers on our list. If you don't want me to call on this number, I'll do that but before I hang up can you give me 30 seconds so that I can share the reason for this call. If it doesn't make sense, I'll remove your number.",
+          tags: ["privacy", "personal", "contact", "quick"],
+        },
+        whatis_q: {
+          title: "What is Hyperbots? (Quick Access)",
+          content:
+            "Hyperbots is an Agentic AI platform for Accounts Payable (AP) that automates invoice processing, payment workflows, procurement, and tax verification with high accuracy and speed.",
+          tags: ["product", "overview", "quick"],
+        },
+        howgetnumber_q: {
+          title: "How did you get my number? (Quick Access)",
+          content:
+            "Oh, we have a database team that just updates mobile numbers on our list. If you don't want me to call on this number, I'll do that but before I hang up can you give me 30 seconds so that I can share the reason for this call. If it doesn't make sense, I'll remove your number.",
+          tags: ["privacy", "contact", "quick"],
+        },
+        busy_q: {
+          title: "They say: I'm busy",
+          content:
+            "Totally understand! Can I send over a 60-second overview by email and you can check when it suits you?",
+          tags: ["objection", "timing", "busy", "quick"],
+        },
+        alreadyusing_q: {
+          title: "They say: We already have a tool",
+          content:
+            "Makes sense—most teams do. Just out of curiosity, is it ERP-native or standalone?",
+          tags: ["objection", "competitive", "tools", "quick"],
+        },
+        notrighttime_q: {
+          title: "They say: Not the right time",
+          content:
+            "No problem—happy to circle back next quarter. May I just note the best person/time?",
+          tags: ["objection", "timing", "follow-up", "quick"],
+        },
+        sendemail_q: {
+          title: "They say: Send me an email",
+          content:
+            "Sure thing—can I confirm your email address real quick? I'll keep it short and relevant.",
+          tags: ["follow-up", "email", "contact", "quick"],
+        },
+        notinterested_q: {
+          title: "They say: Not Interested",
+          content:
+            "Understood. Just sharing: we cut invoice time from 11 days to under a minute. Open to a future chat if priorities change!",
+          tags: ["objection", "closing", "value", "quick"],
+        },
+      };
+
+      let currentFilter = "all";
+
+      function renderObjections() {
+        const container = document.getElementById("objections-container");
+        const list = document.getElementById("objections-list");
+        container.innerHTML = "";
+        list.innerHTML = "";
+
+        // Update filter tags
+        updateFilterTags();
+
+        Object.entries(objections).forEach(([key, obj]) => {
+          // Skip if not matching current filter
+          if (currentFilter !== "all" && !obj.tags.includes(currentFilter)) {
+            return;
+          }
+
+          // Create main card
+          const card = document.createElement("div");
+          card.className = "objection-card";
+          card.innerHTML = `
+                    <div class="objection-header">
+                        <div class="objection-title">${obj.title}</div>
+                        <div class="objection-controls">
+                            <button class="edit-btn" onclick="editObjection('${key}')">Edit</button>
+                            <button class="copy-btn" onclick="copyToClipboard('${key}')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        ${obj.tags
+                          .map((tag) => `<span class="tag">${tag}</span>`)
+                          .join("")}
+                    </div>
+                    <div class="objection-content" id="content-${key}">
+                        ${obj.content.replace(/\n/g, "<br>")}
+                    </div>
+                    <div class="objection-edit" id="edit-${key}" style="display: none;">
+                        <input type="text" class="edit-input" id="title-${key}" value="${
+            obj.title
+          }" placeholder="Objection title..." />
+                        <input type="text" class="edit-input" id="tags-${key}" value="${obj.tags.join(
+            ", "
+          )}" placeholder="Tags (comma separated)..." />
+                        <textarea class="edit-textarea" id="textarea-${key}">${
+            obj.content
+          }</textarea>
+                        <button class="save-btn" onclick="saveObjection('${key}')">Save</button>
+                        <button class="cancel-btn" onclick="cancelEdit('${key}')">Cancel</button>
+                    </div>
+                `;
+          container.appendChild(card);
+
+          // Create quick access button
+          const button = document.createElement("button");
+          button.className = "button";
+          button.textContent = obj.title;
+          button.onclick = () => {
+            const element = document.getElementById(`content-${key}`);
+            element.scrollIntoView({ behavior: "smooth" });
+          };
+          list.appendChild(button);
         });
-        const el = document.getElementById(id);
-        if (el) {
-          el.classList.toggle("active");
+      }
+
+      function updateFilterTags() {
+        const filterContainer = document.getElementById("filterTags");
+        const allTags = new Set();
+
+        Object.values(objections).forEach((obj) => {
+          obj.tags.forEach((tag) => allTags.add(tag));
+        });
+
+        filterContainer.innerHTML = "";
+
+        // Add "All" filter
+        const allFilter = document.createElement("div");
+        allFilter.className = `filter-tag ${
+          currentFilter === "all" ? "active" : ""
+        }`;
+        allFilter.textContent = "All";
+        allFilter.onclick = () => filterByTag("all");
+        filterContainer.appendChild(allFilter);
+
+        // Add individual tag filters
+        Array.from(allTags)
+          .sort()
+          .forEach((tag) => {
+            const tagEl = document.createElement("div");
+            tagEl.className = `filter-tag ${
+              currentFilter === tag ? "active" : ""
+            }`;
+            tagEl.textContent = tag;
+            tagEl.onclick = () => filterByTag(tag);
+            filterContainer.appendChild(tagEl);
+          });
+      }
+
+      function filterByTag(tag) {
+        currentFilter = tag;
+        document.querySelectorAll(".filter-tag").forEach((el) => {
+          el.classList.toggle(
+            "active",
+            el.textContent === tag ||
+              (tag === "all" && el.textContent === "All")
+          );
+        });
+        renderObjections();
+      }
+
+      function searchObjections() {
+        const searchTerm = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+
+        if (searchTerm === "") {
+          // If search is empty, show everything
+          renderObjections();
+          document.querySelectorAll(".section").forEach((section) => {
+            section.style.display = "block";
+          });
+          document
+            .querySelectorAll(".quick-access-buttons .button")
+            .forEach((button) => {
+              button.style.display = "block";
+            });
+          document
+            .querySelectorAll(".quick-access-buttons .response")
+            .forEach((response) => {
+              response.style.display = "none"; // Reset to hidden
+            });
+          return;
+        }
+
+        // Search dynamic objections
+        Object.entries(objections).forEach(([key, obj]) => {
+          const card = document.querySelector(`#content-${key}`)?.parentElement;
+          if (card) {
+            const matches =
+              obj.title.toLowerCase().includes(searchTerm) ||
+              obj.content.toLowerCase().includes(searchTerm) ||
+              obj.tags.some((tag) => tag.toLowerCase().includes(searchTerm));
+
+            const filterMatches =
+              currentFilter === "all" || obj.tags.includes(currentFilter);
+
+            card.style.display = matches && filterMatches ? "block" : "none";
+          }
+        });
+
+        // Search static HTML sections (main content)
+        document.querySelectorAll(".section").forEach((section) => {
+          const sectionText = section.textContent.toLowerCase();
+          section.style.display = sectionText.includes(searchTerm)
+            ? "block"
+            : "none";
+        });
+
+        // Search Quick Access buttons in sidebar
+        document
+          .querySelectorAll(".quick-access-buttons .button")
+          .forEach((button) => {
+            const buttonText = button.textContent.toLowerCase();
+            const onclickAttr = button.getAttribute("onclick");
+            if (onclickAttr) {
+              const match = onclickAttr.match(/'([^']+)'/);
+              if (match) {
+                const responseId = match[1];
+                const responseElement = document.getElementById(responseId);
+                const responseText = responseElement
+                  ? responseElement.textContent.toLowerCase()
+                  : "";
+
+                if (
+                  buttonText.includes(searchTerm) ||
+                  responseText.includes(searchTerm)
+                ) {
+                  button.style.display = "block";
+                } else {
+                  button.style.display = "none";
+                }
+              }
+            }
+          });
+      }
+
+      function editObjection(key) {
+        document.getElementById(`content-${key}`).style.display = "none";
+        document.getElementById(`edit-${key}`).style.display = "block";
+      }
+
+      function cancelEdit(key) {
+        document.getElementById(`content-${key}`).style.display = "block";
+        document.getElementById(`edit-${key}`).style.display = "none";
+      }
+
+      function saveObjection(key) {
+        const newTitle = document.getElementById(`title-${key}`).value;
+        const newTags = document
+          .getElementById(`tags-${key}`)
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+        const newContent = document.getElementById(`textarea-${key}`).value;
+
+        objections[key] = {
+          title: newTitle,
+          content: newContent,
+          tags: newTags,
+        };
+
+        localStorage.setItem("objections", JSON.stringify(objections));
+        renderObjections();
+      }
+
+      function copyToClipboard(key) {
+        let text = "";
+
+        // Check if it's a dynamic objection
+        if (objections[key]) {
+          text = objections[key].content;
+        } else {
+          // Check if it's a static response
+          const contentDiv =
+            document.getElementById(key + "-content") ||
+            document.getElementById(key);
+          if (contentDiv) {
+            text = contentDiv.textContent.replace(/Edit|Copy/g, "").trim();
+          }
+        }
+
+        if (text) {
+          navigator.clipboard.writeText(text).then(() => {
+            alert("Copied to clipboard!");
+          });
         }
       }
 
-      // Copy text to clipboard
-      function copyToClipboard(id) {
-        const text = document.getElementById(id).textContent.trim();
+      function toggleAddForm() {
+        const form = document.getElementById("addForm");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+        if (form.style.display === "block") {
+          document.getElementById("newTitle").value = "";
+          document.getElementById("newTags").value = "";
+          document.getElementById("newContent").value = "";
+        }
+      }
+
+      function addNewObjection() {
+        const title = document.getElementById("newTitle").value;
+        const tags = document
+          .getElementById("newTags")
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+        const content = document.getElementById("newContent").value;
+
+        if (!title || !content) {
+          alert("Please fill in title and content");
+          return;
+        }
+
+        const key = "objection_" + Date.now();
+        objections[key] = { title, content, tags };
+
+        localStorage.setItem("objections", JSON.stringify(objections));
+        toggleAddForm();
+
+        // Force immediate re-render
+        setTimeout(() => {
+          renderObjections();
+        }, 0);
+      }
+
+      // Toggle function for static HTML sections
+      function toggle(id) {
+        // Hide all other responses in the same parent
+        const element = document.getElementById(id);
+        if (element) {
+          const parent = element.parentElement;
+          const allResponses = parent.querySelectorAll(".response");
+          allResponses.forEach((response) => {
+            if (response.id !== id) response.style.display = "none";
+          });
+
+          // Toggle the clicked element
+          if (
+            element.style.display === "none" ||
+            element.style.display === ""
+          ) {
+            element.style.display = "block";
+          } else {
+            element.style.display = "none";
+          }
+        }
+      }
+
+      // Edit static response
+      function editStaticResponse(id) {
+        const contentDiv = document.getElementById(id + "-content");
+        const editDiv = document.getElementById(id + "-edit");
+        const textarea = document.getElementById(id + "-textarea");
+
+        if (contentDiv && editDiv && textarea) {
+          contentDiv.style.display = "none";
+          editDiv.style.display = "block";
+          textarea.value = contentDiv.textContent.trim();
+        }
+      }
+
+      // Save static response
+      function saveStaticResponse(id) {
+        const contentDiv = document.getElementById(id + "-content");
+        const editDiv = document.getElementById(id + "-edit");
+        const textarea = document.getElementById(id + "-textarea");
+
+        if (contentDiv && editDiv && textarea) {
+          contentDiv.innerHTML = textarea.value.replace(/\n/g, "<br>");
+          contentDiv.style.display = "block";
+          editDiv.style.display = "none";
+
+          // Save to localStorage
+          localStorage.setItem("static_" + id, textarea.value);
+        }
+      }
+
+      // Cancel static edit
+      function cancelStaticEdit(id) {
+        const contentDiv = document.getElementById(id + "-content");
+        const editDiv = document.getElementById(id + "-edit");
+
+        if (contentDiv && editDiv) {
+          contentDiv.style.display = "block";
+          editDiv.style.display = "none";
+        }
+      }
+
+      function exportNotes() {
+        const notes = document.getElementById("callNotes").value;
+        const blob = new Blob([notes], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "call_notes.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      // Call Script editing functions
+      function editCallScript() {
+        document.getElementById("callScriptContent").style.display = "none";
+        document.getElementById("editCallScript").style.display = "block";
+        const currentContent =
+          document.getElementById("callScriptContent").innerText;
+        document.getElementById("callScriptTextarea").value = currentContent;
+      }
+
+      function cancelCallScriptEdit() {
+        document.getElementById("callScriptContent").style.display = "block";
+        document.getElementById("editCallScript").style.display = "none";
+      }
+
+      function saveCallScript() {
+        const newContent = document.getElementById("callScriptTextarea").value;
+        document.getElementById("callScriptContent").innerHTML =
+          newContent.replace(/\n/g, "<br>");
+        localStorage.setItem("callScript", newContent);
+        cancelCallScriptEdit();
+      }
+
+      function copyCallScript() {
+        const text = document.getElementById("callScriptContent").innerText;
         navigator.clipboard.writeText(text).then(() => {
-          alert("Copied to clipboard!");
+          alert("Call script copied to clipboard!");
         });
       }
 
-      // Save notes to localStorage
-      function saveNotes() {
-        const notes = document.getElementById("callNotes").value;
-        localStorage.setItem("callNotes", notes);
-        alert("Notes saved!");
+      // Add edit functionality to all static responses
+      function addEditToStaticResponses() {
+        // Get all response divs that don't already have edit functionality
+        const responseIds = [
+          "greeting",
+          "whatis",
+          "salescallconv",
+          "howgetnumber",
+          "privacy1",
+          "privacy2",
+          "privacy3",
+          "useai",
+          "aiyes",
+          "bookyes",
+          "denyafteryes",
+          "aino",
+          "intrestedno",
+          "nothanks",
+          "systeminplaceall_q",
+          "salescallconv_q",
+          "erpchange_q",
+          "cost_q",
+          "companyinfo_q",
+          "nobudget_q",
+          "noauthority_q",
+          "industry_q",
+          "corporate_q",
+          "internal_q",
+          "personalnumber_q",
+          "whatis_q",
+          "howgetnumber_q",
+          "busy_q",
+          "alreadyusing_q",
+          "notrighttime_q",
+          "sendemail_q",
+          "notinterested_q",
+          "questionpainpoint_q",
+          "questiontools_q",
+        ];
+
+        responseIds.forEach((id) => {
+          const responseDiv = document.getElementById(id);
+          if (responseDiv && !document.getElementById(id + "-content")) {
+            const originalContent = responseDiv.innerHTML;
+            const textContent = responseDiv.textContent
+              .replace(/Copy|Edit/g, "")
+              .trim();
+
+            responseDiv.innerHTML = `
+              <div id="${id}-content">
+                ${originalContent.replace(
+                  /(<button[^>]*class="[^"]*btn[^>]*>.*?<\/button>)/g,
+                  ""
+                )}
+              </div>
+              <div id="${id}-edit" style="display: none;">
+                <textarea class="edit-textarea" id="${id}-textarea">${textContent}</textarea>
+                <button class="save-btn" onclick="saveStaticResponse('${id}')">Save</button>
+                <button class="cancel-btn" onclick="cancelStaticEdit('${id}')">Cancel</button>
+              </div>
+              <button class="edit-btn" onclick="editStaticResponse('${id}')">Edit</button>
+              <button class="copy-btn" onclick="copyToClipboard('${id}')">Copy</button>
+            `;
+
+            // Load saved content if exists
+            const savedContent = localStorage.getItem("static_" + id);
+            if (savedContent) {
+              document.getElementById(id + "-content").innerHTML =
+                savedContent.replace(/\n/g, "<br>");
+              document.getElementById(id + "-textarea").value = savedContent;
+            }
+          }
+        });
       }
 
-      // Load saved notes on page load
+      // Initialize on page load
       window.onload = function () {
+        const savedObjections = localStorage.getItem("objections");
+        if (savedObjections) {
+          objections = { ...objections, ...JSON.parse(savedObjections) };
+        }
+        renderObjections();
+
         const savedNotes = localStorage.getItem("callNotes");
         if (savedNotes) {
           document.getElementById("callNotes").value = savedNotes;
         }
+
+        const savedCallScript = localStorage.getItem("callScript");
+        if (savedCallScript) {
+          document.getElementById("callScriptContent").innerHTML =
+            savedCallScript.replace(/\n/g, "<br>");
+          document.getElementById("callScriptTextarea").value = savedCallScript;
+        }
+
+        // Add edit functionality to all static responses
+        addEditToStaticResponses();
       };
 
-      function exportNotes() {
-        const notes = document.getElementById("callNotes").value;
-        const calls = document.getElementById("totalCalls").textContent;
-        const yes = document.getElementById("interestedCount").textContent;
-        const no = document.getElementById("notInterestedCount").textContent;
-
-        const csv = `Notes,Total Calls,Interested,Not Interested\n"${notes.replace(
-          /"/g,
-          '""'
-        )}",${calls},${yes},${no}`;
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "call_data.csv";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
+      // Auto-save notes
+      document
+        .getElementById("callNotes")
+        .addEventListener("input", function () {
+          localStorage.setItem("callNotes", this.value);
+        });
     </script>
   </body>
 </html>
