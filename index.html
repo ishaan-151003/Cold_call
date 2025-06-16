@@ -9,23 +9,25 @@
     />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>Hyperbots Cold Call Navigator</title>
+    <title>HyperCall Navigator</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --primary-color: #007bff;
-        --primary-hover: #0056b3;
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-        --warning-color: #ffc107;
-        --background-color: #1a1a1a;
-        --card-background: #2d2d2d;
-        --text-color: #ffffff;
-        --text-secondary: #b0b0b0;
-        --border-color: #404040;
+        --primary-color: #4a90e2;
+        --primary-hover: #357abd;
+        --success-color: #5cb85c;
+        --danger-color: #d9534f;
+        --warning-color: #f0ad4e;
+        --background-color: #1e1e1e;
+        --card-background: #2a2a2a;
+        --text-color: #e8e8e8;
+        --text-secondary: #b8b8b8;
+        --border-color: #444444;
+        --response-background: #2f2f2f;
+        --hover-background: #353535;
       }
 
       * {
@@ -216,18 +218,19 @@
       }
 
       .objection-card {
-        background: var(--card-background);
-        border-radius: 8px;
+        background: var(--response-background);
+        border-radius: 12px;
         padding: 20px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
       }
 
       .objection-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background: var(--hover-background);
       }
 
       .objection-header {
@@ -255,14 +258,15 @@
       .edit-btn,
       .save-btn,
       .cancel-btn {
-        background: #f0f0f0;
-        color: #333;
+        background: var(--border-color);
+        color: var(--text-color);
         border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
+        padding: 6px 12px;
+        border-radius: 6px;
         cursor: pointer;
         font-size: 12px;
         transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
 
       .save-btn {
@@ -276,7 +280,9 @@
       }
 
       .edit-btn:hover {
-        background: #e0e0e0;
+        background: var(--hover-background);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
       }
 
       .save-btn:hover {
@@ -303,11 +309,24 @@
         background: var(--success-color);
       }
 
+      .response {
+        background: var(--response-background) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.3s ease;
+      }
+
+      .response:hover {
+        background: var(--hover-background) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+      }
+
       #filteredQuickAccess {
-        background: rgba(0, 123, 255, 0.1);
+        background: var(--response-background);
         padding: 15px;
         border-radius: 8px;
         border-left: 4px solid var(--primary-color);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       #filteredQuickAccessButtons .button {
@@ -350,21 +369,24 @@
       }
 
       .button {
-        padding: 10px 15px;
-        margin: 5px 0;
+        padding: 12px 16px;
+        margin: 6px 0;
         background-color: var(--primary-color);
         color: white;
         border: none;
-        border-radius: 6px;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: 500;
         width: 100%;
         text-align: left;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .button:hover {
         background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
       }
 
       .notepad textarea {
@@ -381,18 +403,22 @@
       }
 
       .copy-btn {
-        background: #6c757d;
+        background: var(--primary-color);
         color: white;
         border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
+        padding: 6px 12px;
+        border-radius: 6px;
         cursor: pointer;
         margin-left: 10px;
         font-size: 12px;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
 
       .copy-btn:hover {
-        background: #5a6268;
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
       }
 
       .footer {
@@ -422,11 +448,13 @@
       }
 
       .add-objection-form {
-        background: var(--background-color);
-        padding: 15px;
-        border-radius: 8px;
+        background: var(--response-background);
+        padding: 20px;
+        border-radius: 12px;
         margin-bottom: 15px;
         display: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        border: 1px solid var(--border-color);
       }
 
       .tag-input {
@@ -481,7 +509,7 @@
           HB
         </div>
         <h1 style="color: var(--text-color); font-size: 24px; margin: 0">
-          HyperNavigator
+          HyperCall
         </h1>
       </div>
       <div class="search-container">
